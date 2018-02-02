@@ -1,18 +1,41 @@
 import React from 'react';
-import { ScrollView, StyleSheet } from 'react-native';
-import { ExpoLinksView } from '@expo/samples';
+import { ScrollView, View,StyleSheet } from 'react-native';
+import Button, { looks } from "../components/btn";
+import OnBoarding from '../components/on-boarding/comp';
+import {
+  StackNavigator,
+} from 'react-navigation';
 
 export default class ConnectScreen extends React.Component {
   static navigationOptions = {
-    title: 'Links',
+    title: 'Connect',
   };
 
+
+
+  goToOnBoard = () => {
+    this.props.navigation.navigate("OnBoarding");
+  }
+ 
+  goToDropZones = () => {
+    this.props.navigation.navigate("DropZones");
+  } 
+  click = () => {
+    console.log('clicked')
+  }
   render() {
     return (
       <ScrollView style={styles.container}>
-        {/* Go ahead and delete ExpoLinksView and replace it with your
-           * content, we just wanted to provide you with some helpful links */}
-        <ExpoLinksView />
+     
+     <View style={{ flexDirection: "row" }}>
+          <Button look={looks.comboLeft} handleClick={this.click} label={"Login"} />
+          <Button look={looks.comboRight} handleClick={this.click} label={"Register"} />
+        </View>
+
+        <Button look={looks.primary} handleClick={this.goToOnBoard} label={"OnBoarding"} />
+        <Button look={looks.primary} handleClick={this.goToDropZones} label={"Drop zones"} />
+
+
       </ScrollView>
     );
   }

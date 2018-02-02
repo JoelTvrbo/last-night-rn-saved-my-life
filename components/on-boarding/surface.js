@@ -83,8 +83,8 @@ export default class Surface extends React.Component {
 
 
 componentWillUnmount() {
-    this.state.panXY._animatedX.removeAllListeners();
-    this.state.panXY._animatedY.removeAllListeners();
+    this.state.panXY.x.removeAllListeners();
+    this.state.panXY.y.removeAllListeners();
   }
 
 componentWillReceiveProps(props) {

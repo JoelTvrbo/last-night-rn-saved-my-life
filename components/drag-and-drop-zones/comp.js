@@ -15,9 +15,9 @@ import {
   UIManager
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import {width,height} from "../../lib/device";
-import Theme from "../../lib/theme";
-import {crudRender,crudCreate,crudUpdate,crudDelete,measureNode} from "../../lib/funcs";
+import {width,height} from "../../constants/device";
+import Theme from "../../constants/theme";
+import {crudRender,crudCreate,crudUpdate,crudDelete,measureNode} from "../../constants/funcs";
 import Draggie from "./draggie";
 
 const dnd = [ { key: 1, nom: "Catalina",success:false,nope:false,animating:false,disabled:false }, { key: 2, nom: "Romulo",success:false,nope:false,animating:false,disabled:false }, { key: 3, nom: "Noooollo",success:false,nope:false,animating:false,disabled:false },
@@ -25,7 +25,7 @@ const dnd = [ { key: 1, nom: "Catalina",success:false,nope:false,animating:false
  { key: 8, nom: "ulma",success:false,nope:false,animating:false,disabled:false }, { key: 9, nom: "Serotonina",success:false,nope:false,animating:false,disabled:false }];
 
 
-export default class DndZones extends React.Component {
+export default class DropZones extends React.Component {
   state = {
     opacity: new Animated.Value(0.4),
     panXY: new Animated.ValueXY({ x: 0, y: 0 }),
@@ -46,7 +46,7 @@ export default class DndZones extends React.Component {
   };
 
 
-  findX = k => {
+findX = k => {
       if (k === 1 || k === 4 + 1 || k === 8 + 1 || k === 16 + 1  ) return 10;
       if ( k === 2 || k === 4 + 2 || k === 8 + 2  ) return 100;
       if ( k === 3 || k === 4 + 3 || k === 8 + 3  ) return 200;
@@ -61,6 +61,7 @@ findY = k => {
 
 
   startDrag = k => {
+    console.log('start')
     this[k].setNativeProps({ style: { backgroundColor: "#bbb" } });
     const dax = this.findX(k);
     const day = this.findY(k);
@@ -76,9 +77,9 @@ findY = k => {
   };
 
 
-
   drop(pos) {
     if (!pos || pos.x === 0 || pos.y === 0) return;
+    console.log('drop')
 
     const dd = this.state.dropZones
       .filter(
@@ -226,8 +227,8 @@ findY = k => {
     const { success,dropZones, draggies, dragPos, opacity, animating } = this.state;
 
     const DropZoneStyles = {
-      width: K.viewport.width / 4 ,
-      height:  K.viewport.width / 4 ,
+      width: width / 4 ,
+      height:  width / 4 ,
       backgroundColor: "#bbb",
       borderWidth: 2,
       borderColor: "#eee",
@@ -320,7 +321,7 @@ findY = k => {
         <FlatList
           scrollEnabled={false}
           style={{
-            width: K.viewport.width,
+            width: width,
           }}
           ref={el => {
             this.list = el;
@@ -339,8 +340,8 @@ findY = k => {
           renderItem={({ item }) => (
             <View 
               style={{
-                width: K.viewport.width / 4 - 20,
-                height: K.viewport.width / 4 - 20,
+                width: width / 4 - 20,
+                height: width / 4 - 20,
                 marginHorizontal:10,
                 marginVertical:10,
                 backgroundColor:this.getBgColor(item)

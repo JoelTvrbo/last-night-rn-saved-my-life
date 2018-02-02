@@ -2,14 +2,30 @@ import { Notifications } from 'expo';
 import React from 'react';
 import { StackNavigator } from 'react-navigation';
 
-import MainTabNavigator from './MainTabNavigator';
+import Theme from '../constants/theme';
+
+import OnBoardingScreen from '../screens/OnBoardingScreen';
+import ConnectScreen from '../screens/ConnectScreen';
+import SettingsScreen from '../screens/SettingsScreen';
+import DropZonesScreen from '../screens/DropZonesScreen';
+
+
 import registerForPushNotificationsAsync from '../api/registerForPushNotificationsAsync';
 
 const RootStackNavigator = StackNavigator(
   {
     Main: {
-      screen: MainTabNavigator,
+      screen: ConnectScreen,
     },
+    OnBoarding: {
+      screen: OnBoardingScreen,
+    },
+    Settings: {
+      screen: SettingsScreen,
+    },         
+    DropZones: {
+      screen: DropZonesScreen,
+    },  
   },
   {
     navigationOptions: () => ({

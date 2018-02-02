@@ -12,9 +12,9 @@ import {
   findNodeHandle,
   UIManager
 } from "react-native";
-import {width,height} from "../../lib/device";
-import Theme from "../../lib/theme";
-import { gestureIsClick, getSwipeDirection } from "../../lib/touches";
+import {width,height} from "../../constants/device";
+import Theme from "../../constants/theme";
+import { gestureIsClick, getSwipeDirection } from "../../constants/touches";
 
 swipeConfig = {
   velocityThreshold: 0.3,

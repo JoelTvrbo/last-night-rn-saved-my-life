@@ -55,7 +55,7 @@ export const removeProp = (obj, property) => {
   // const updated = removeProperty(blackBox, 'items');
 }
 
-
+export const removeDuplicates = arr => [...new Set(arr)];
 export const addItem = (arr, value) => [...arr, value];
 export const addItemConcat = (arr, value) => arr.concat(value);
 export const removeByItem = (arr, value) => arr.filter((item) => item !== value);
