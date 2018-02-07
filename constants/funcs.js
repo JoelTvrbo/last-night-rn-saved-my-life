@@ -33,13 +33,8 @@ export const getId = get('id');
 // series.map(getId); //should return [ 4, 5, 6 ]
 export const getName = get('name');
 // movies.map(getName); //should return [ 'Matrix', 'Star Wars', 'The wolf of Wall Street' ]
-
-export const typeCheck = (type, ...args) => {
-  return args.filter(item => typeof item === type);
-  // typeCheck('boolean', true, 0, false);   => [true, false]  
-} 
-
 export const getProp = (name,obj) => obj[name];
+
 export const setProp = (name,obj,val) => {
   var o = Object.assign( {}, obj );
   o[name] = val;
@@ -52,8 +47,13 @@ export const removeProp = (obj, property) => {
     }
     return acc;
   }, {})
-  // const updated = removeProperty(blackBox, 'items');
+  // const updated = removeProp(blackBox, 'items');
 }
+
+export const typeCheck = (type, ...args) => {
+  return args.filter(item => typeof item === type);
+  // typeCheck('boolean', true, 0, false);   => [true, false]  
+} 
 
 export const removeDuplicates = arr => [...new Set(arr)];
 export const addItem = (arr, value) => [...arr, value];

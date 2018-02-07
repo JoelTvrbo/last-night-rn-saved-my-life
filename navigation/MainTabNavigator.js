@@ -20,9 +20,7 @@ export default TabNavigator(
     Connect: {
       screen: ConnectScreen,
     },
-    Settings: {
-      screen: SettingsScreen,
-    },
+  
   },
   {
     navigationOptions: ({ navigation }) => ({

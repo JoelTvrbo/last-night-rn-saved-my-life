@@ -8,6 +8,10 @@ import OnBoardingScreen from '../screens/OnBoardingScreen';
 import ConnectScreen from '../screens/ConnectScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import DropZonesScreen from '../screens/DropZonesScreen';
+import PackScreen from '../screens/PackScreens';
+import HoodScreen from '../screens/HoodScreen';
+import ReOrderScreen from '../screens/ReOrderScreen';
+import DeckScreen from '../screens/DeckScreen';
 
 
 import registerForPushNotificationsAsync from '../api/registerForPushNotificationsAsync';
@@ -20,11 +24,20 @@ const RootStackNavigator = StackNavigator(
     OnBoarding: {
       screen: OnBoardingScreen,
     },
-    Settings: {
-      screen: SettingsScreen,
-    },         
+    Pack: {
+      screen: PackScreen,
+    },  
+    Hood: {
+      screen: HoodScreen,
+    },       
     DropZones: {
       screen: DropZonesScreen,
+    },  
+    ReOrder: {
+      screen: ReOrderScreen,
+    },  
+    Deck: {
+      screen: DeckScreen,
     },  
   },
   {

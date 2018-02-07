@@ -1,4 +1,4 @@
-import React,{cloneElement} from "react";
+import React, { cloneElement } from "react";
 import {
   Animated,
   Easing,
@@ -14,74 +14,78 @@ import {
   findNodeHandle,
   UIManager
 } from "react-native";
+import { width, height } from "../constants/device";
+import Theme from "../constants/theme";
 import { Ionicons } from "@expo/vector-icons";
-import {width,height} from "../../constants/device";
-import Theme from "../../constants/theme";
-import {crudRender,crudCreate,crudUpdate,crudDelete,measureNode} from "../../constants/funcs";
-import Draggie from "./draggie";
 
-const dnd = [ { key: 1, nom: "Catalina",success:false,nope:false,animating:false,disabled:false }, { key: 2, nom: "Romulo",success:false,nope:false,animating:false,disabled:false }, { key: 3, nom: "Noooollo",success:false,nope:false,animating:false,disabled:false },
- { key: 4, nom: "Moro",success:false,nope:false,animating:false,disabled:false }, { key: 5, nom: "Nura",success:false,nope:false,animating:false,disabled:false }, { key: 6, nom: "Paura",success:false,nope:false,animating:false,disabled:false }, { key: 7, nom: "Bulma",success:false,nope:false,animating:false,disabled:false } , 
- { key: 8, nom: "ulma",success:false,nope:false,animating:false,disabled:false }, { key: 9, nom: "Serotonina",success:false,nope:false,animating:false,disabled:false }];
+const dnd = [
+  { key: 1, nom: "Catalina" },
+  { key: 2, nom: "Romulo" },
+  { key: 3, nom: "Noooollo" },
+  { key: 4, nom: "Moro" },
+  { key: 5, nom: "Nura" },
+  { key: 6, nom: "Paura" },
+  { key: 7, nom: "Bulma" },
+  { key: 8, nom: "ulma" },
+  { key: 9, nom: "Serotonina" }
+];
 
+const config = {
+  margin: 10,
+  width: Math.floor(width / 4 - 20)
+};
 
-export default class DropZones extends React.Component {
+const getProp = (src, k, key) => {
+  return src.filter(el => el.ref === k).map(el => el[key])[0];
+};
+
+export default class App extends React.Component {
   state = {
-    opacity: new Animated.Value(0.4),
+    opacity: new Animated.Value(0),
     panXY: new Animated.ValueXY({ x: 0, y: 0 }),
-    // background: new Animated.Value(0),
-    dragabbleItems:[],
+    draggables: [],
     dropZones: [],
     success: false,
     animating: false,
     droppedZone: null,
-    disabled: true,
-    dragging:null,
-    wishlist:[],
-    cart:[],
-    empty:[],
-    dx:10,
-    dy:0,
-    list:null,
+    dragging: 0,
+    wishlist: [],
+    cart: [],
+    dx: config.margin,
+    dy: 0,
+    list: null,
   };
 
-
-findX = k => {
-      if (k === 1 || k === 4 + 1 || k === 8 + 1 || k === 16 + 1  ) return 10;
-      if ( k === 2 || k === 4 + 2 || k === 8 + 2  ) return 100;
-      if ( k === 3 || k === 4 + 3 || k === 8 + 3  ) return 200;
-}
-
-findY = k => {
-    if (k < 5) return this.state.list + 10;
-    if (k >= 5 && k < 9) return this.state.list + 100;
-    if (k >= 8 && k < 13) return  this.state.list + 90*2;
-    if (k >= 12 && k <= 16) return this.state.list +  90*3;
-}
-
-
-  startDrag = k => {
-    console.log('start')
-    this[k].setNativeProps({ style: { backgroundColor: "#bbb" } });
-    const dax = this.findX(k);
-    const day = this.findY(k);
+  componentDidMount() {
     this.setState({
-      animating: true,
-      disabled: false,
-      dragging:k,
-      backupx:dax,
-      backupy:day,
-      dx:dax,
-      dy:day
+      data: dnd
     });
-  };
+  }
 
+  start = k => {
+
+    const xx = getProp(this.state.draggables, k, "pageX");
+    const yy = getProp(this.state.draggables, k, "pageY");
+
+    this.setState(
+      {
+          animating: true,
+          dragging: k,
+          dx: xx,
+          dy: yy
+      },
+      () =>
+        Animated.timing(this.state.opacity, {
+          toValue: 1,
+          delay: 300
+        }).start()
+    );
+  };
 
   drop(pos) {
-    if (!pos || pos.x === 0 || pos.y === 0) return;
-    console.log('drop')
+    if (!pos || pos.x === 0 || pos.y === 0) return this.resetPan();
 
-    const dd = this.state.dropZones
+    const rawString = this.state.dropZones
       .filter(
         zone =>
           pos.y <= zone.yd &&
@@ -90,34 +94,35 @@ findY = k => {
           pos.x >= zone.x
       )
       .map(zone => zone.ref);
-      const string = dd;
-      const idx = this.state.dragging;
-      if ( string.length === 0) return this.resetPan();
-      if (string === 'empty') {
-        this[idx].setNativeProps({
-          style: { backgroundColor: "pink" }
-        });
-        this.resetPan();
-        return;
+    const string = rawString[0];
 
-      } else {
-        
-        this.setState({
-          droppedZone: string,
-          animating: false,
-          disabled: true,
-          success: true,
-          dragging:null,
-          backupx:null,
-          backupy:null
-        });
-  
-        this[string].setNativeProps({
-          style: { backgroundColor: "cyan" }
-        });
-      }
+    if (!string) {
+      return this.resetPan();
+    } else {
+
+      const k = this.state.dragging;
+
+      this[k].setNativeProps({
+        style: { opacity: 0.2 }
+      })
+
+      this.setState(
+        prevState => {
+          return {
+            droppedZone: string,
+            animating: false,
+            dragging: 0,
+          }
+        },
+        () => {
+          this[string].setNativeProps({
+            style: { backgroundColor: "cyan" }
+          })
+        }
+      );
+      return this.resetPan();
     }
-  
+  }
 
   componentWillMount() {
     this._animatedX = 0;
@@ -125,21 +130,12 @@ findY = k => {
     this.state.panXY.x.addListener(event => (this._animatedX = event.value));
     this.state.panXY.y.addListener(event => (this._animatedY = event.value));
   }
-  
-  componentWillUpdate() {
-    LayoutAnimation.configureNext({
-      ...LayoutAnimation.Presets.easeInEaseOut,
-      duration: 200
-    });
-  }
 
   panResponder = PanResponder.create({
     onMoveShouldSetPanResponderCapture: () => true,
     onPanResponderGrant: (e, gesture) => {
-      const { locationX, locationY } = e.nativeEvent;
-
       this.draggie.setNativeProps({
-        style: { borderWidth: 3 }
+        style: { opacity:.8 }
       });
 
       this.state.panXY.setOffset({
@@ -147,57 +143,32 @@ findY = k => {
         y: this._animatedY
       });
       this.state.panXY.setValue({ x: 0, y: 0 });
-   
     },
-    onPanResponderMove: (event) => {
-  this.setState({
-    dx:event.nativeEvent.pageX, 
-    dy:event.nativeEvent.pageY,
-  });
-
+    onPanResponderMove: event => {
+      this.setState({
+        dx: event.nativeEvent.pageX,
+        dy: event.nativeEvent.pageY
+      });
     },
     onPanResponderRelease: (e, gestureState) => {
-      const { pageX, pageY, identifier, locationX, locationY } = e.nativeEvent;
-      const { moveX, moveY, dx, dy, x0, y0, vx, vy, numberActiveTouches } = gestureState;
-
       requestAnimationFrame(() => {
-      UIManager.measure(findNodeHandle(this.draggie), (x, y, width, height, pageX, pageY) => {
-        const pos = { x:Math.floor(pageX), y:Math.floor(pageY)}
-        this.drop(pos);
-        });
+        UIManager.measure(
+          findNodeHandle(this.draggie),
+          (x, y, width, height, pageX, pageY) => {
+            const pos = { x: Math.floor(pageX), y: Math.floor(pageY) };
+            this.drop(pos);
+          }
+        )
       });
-
       this.state.panXY.flattenOffset();
-  }
-
-  })
-
-
-
+    }
+  });
 
   resetPan() {
-    const x = this.state.backupx;
-    const y = this.state.backupy;
-    
-   this.setState({
-     dx:x,
-     dy:y
-   })
+    Animated.timing(this.state.opacity, {
+      toValue: 0
+    }).start();
   }
-
-  resetState() {
-   
-    this.setState({
-      animating: false,
-      disabled: true, 
-      success: true,
-      dragging:null,
-      backupx:null,
-      backupy:null
-    })
-
-  }
-
 
   updateZone(iam) {
     this.setState(prevState => {
@@ -207,42 +178,143 @@ findY = k => {
     });
   }
 
-  setUpList(y) {
-    this.setState({
-        list: y,
-        dy:y
-      })
+  updateDraggables(iam) {
+    this.setState(prevState => {
+      return {
+        draggables: [...prevState.draggables, iam]
+      }
+    });
   }
 
-  getBgColor = (item) => {
-    if (item.disabled) return '#aaa';
-    if (item.animating) return '#ff5';
-    if (item.success) return '#dd3';
-    if (!item.disabled || !item.animating || !item.success) return "#fff";
+  // setUpList(y) {
+  //   const val = y + config.margin;
+  //   this.setState({
+  //     list: y,
+  //     dy: val
+  //   });
+  // }
+
+  renderDrag() {
+    return (
+      <Animated.View
+        {...this.panResponder.panHandlers}
+        ref={el => {
+          this.draggie = el;
+        }}
+        pointerEvents={this.state.animating ? "auto" : "none"}
+        style={{
+          width: config.width,
+          height: config.width,
+          backgroundColor: "magenta",
+          position: "absolute",
+          top: this.state.dy,
+          left: this.state.dx,
+          opacity: this.state.opacity,
+          shadowColor: "black",
+          shadowOffset: { width: 0, height: 20 },
+          shadowOpacity: this.state.dragging ? 0.5 : 0,
+          shadowRadius: 20
+        }}
+      >
+        {this.state.dragging !=0 && <Text>{this.state.dragging}</Text>}
+      </Animated.View>
+    );
   }
+
+  renderList() {
+    return (
+      <FlatList
+        scrollEnabled={false}
+        style={{
+          width: width
+        }}
+        ref={el => {
+          this.list = el;
+        }}
+        // onLayout={({ nativeEvent }) => {
+        //   UIManager.measure(
+        //     findNodeHandle(this.list),
+        //     (x, y, width, height) => {
+        //       this.setUpList(y);
+        //     }
+        //   );
+        // }}
+        data={this.state.data}
+        numColumns={4}
+        keyExtractor={this._keyExtractor}
+        extraData={this.state}
+        getItemLayout={(data, index) => ({
+          length: config.width,
+          offset: config.width * index,
+          index
+        })}
+        renderItem={({ item, index }) => (
+          <View
+            style={{
+              width: config.width,
+              height: config.width,
+              marginHorizontal: config.margin,
+              marginVertical: config.margin,
+              backgroundColor: this.getBgColor(item.key)
+            }}
+            ref={el => {
+              this[item.key] = el;
+            }}
+            onLayout={({ nativeEvent }) => {
+              UIManager.measure(
+                findNodeHandle(this[item.key]),
+                (x, y, width, height, pageX, pageY) => {
+                  const iam = {
+                    x,
+                    y,
+                    pageX,
+                    pageY,
+                    ref: item.key
+                  };
+                  this.updateDraggables(iam);
+                }
+              );
+            }}
+          >
+            <TouchableOpacity
+              style={{ flex: 1 }}
+              onPress={() => this.start(item.key)}
+            >
+              <Text> {item.key}</Text>
+            </TouchableOpacity>
+          </View>
+        )}
+      />
+    );
+  }
+
+  getBgColor = index => {
+    const idx = this.state.dragging;
+    if (index === idx) {
+      return "#ff5";
+    } else return "#fff";
+  };
 
   _keyExtractor = (item, index) => item.key;
 
   render() {
-    const { success,dropZones, draggies, dragPos, opacity, animating } = this.state;
-
     const DropZoneStyles = {
-      width: width / 4 ,
-      height:  width / 4 ,
+      width: width / 4,
+      height: width / 4,
       backgroundColor: "#bbb",
       borderWidth: 2,
-      borderColor: "#eee",
+      borderColor: "#eee"
     };
     const DropZoneEmptyStyles = {
       width: 80,
       height: 80,
       backgroundColor: "yellow",
       borderWidth: 2,
-      borderColor: "yellow",
+      borderColor: "yellow"
     };
 
     return (
-      <SafeAreaView style={styles.safeArea} >
+      <SafeAreaView style={styles.safeArea}>
         <View style={styles.ctnDropZones}>
           <Animated.View
             ref={el => {
@@ -263,7 +335,8 @@ findY = k => {
                   this.updateZone(iam);
                 }
               );
-            }}>
+            }}
+          >
             <Text style={{ backgroundColor: "transparent" }}>Wishlist</Text>
           </Animated.View>
 
@@ -286,14 +359,15 @@ findY = k => {
                 }
               );
             }}
-            style={DropZoneStyles} >
+            style={DropZoneStyles}
+          >
             <Text style={{ backgroundColor: "transparent" }}>Cart</Text>
           </Animated.View>
         </View>
 
         <View style={styles.ctnDropZones}>
-        <Text style={styles.msg}>{this.state.droppedZone}</Text>
-        <Animated.View
+          <Text style={styles.msg}>{this.state.droppedZone}</Text>
+          <Animated.View
             ref={el => {
               this.empty = el;
             }}
@@ -312,67 +386,14 @@ findY = k => {
                 }
               );
             }}
-            style={DropZoneEmptyStyles}>
+            style={DropZoneEmptyStyles}
+          >
             <Text style={{ backgroundColor: "transparent" }}>Empty</Text>
           </Animated.View>
-
         </View>
 
-        <FlatList
-          scrollEnabled={false}
-          style={{
-            width: width,
-          }}
-          ref={el => {
-            this.list = el;
-          }}
-          onLayout={({ nativeEvent }) => {
-            UIManager.measure(
-              findNodeHandle(this.list),
-              (x, y, width, height, pageX, pageY) => {
-                this.setUpList(y);
-              }
-            );
-          }}
-          data={dnd}
-          numColumns={4}
-          keyExtractor={this._keyExtractor}
-          renderItem={({ item }) => (
-            <View 
-              style={{
-                width: width / 4 - 20,
-                height: width / 4 - 20,
-                marginHorizontal:10,
-                marginVertical:10,
-                backgroundColor:this.getBgColor(item)
-              }}
-              ref={el => {
-                this[item.key] = el;
-              }}
-            >
-              <TouchableOpacity 
-                style={{flex:1}}
-                onPress={() => this.startDrag(item.key)}>
-                  <Text> {item.key}</Text>
-              </TouchableOpacity>
-              </View>
-          )}
-        />
-
-
-    <Animated.View
-       {...this.panResponder.panHandlers}
-        ref={el => {
-          this.draggie = el;
-        }}
-        style={[styles.touchableStyles,{backgroundColor:'magenta',
-        position:'absolute',
-        top:this.state.dy,
-        left:this.state.dx,
-        opacity: animating ? 1 : 0
-         }]}
-        // style={[panStyle, dragStyles, moving ? shadows : null]}
-        />
+        {this.renderList()}
+        {this.renderDrag()}
       </SafeAreaView>
     );
   }
@@ -384,21 +405,16 @@ const styles = StyleSheet.create({
     backgroundColor: "#ddd",
     position: "relative"
   },
-  touchableStyles: {
-    width: 80,
-    height: 80
-  },
   ctnDropZones: {
     width: width,
     flexDirection: "row",
     justifyContent: "space-around",
     alignItems: "center",
     minHeight: height / 4,
-    backgroundColor:'transparent'
+    backgroundColor: "transparent"
   },
-  msg:{
-    fontFamily:Theme.type.bold,
-    fontSize:Theme.type.lg
+  msg: {
+    fontFamily: Theme.type.bold,
+    fontSize: Theme.type.lg
   }
 });
-
