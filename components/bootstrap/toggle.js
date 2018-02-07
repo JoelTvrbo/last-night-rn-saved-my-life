@@ -9,8 +9,9 @@ import {
   findNodeHandle,
   UIManager
 } from "react-native";
-import { wide, tall, statusbar } from "../../lib/device";
-import Theme from "../../lib/theme";
+import {wide, tall, statusbar} from "../../constants/device";
+
+import Theme from "../../constants/theme";
 import { Entypo } from "@expo/vector-icons";
 const EntypoIcon = Animated.createAnimatedComponent(Entypo);
 

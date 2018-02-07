@@ -3,8 +3,8 @@ import React, { Component } from "react";
 import { LayoutAnimation, PanResponder, StyleSheet, View,Text } from "react-native";
 import TagsArea from "./tagsAreaReorder";
 import PropTypes from "prop-types"; 
-import {moveArrayElement} from "../../../lib/funcs";
-import {isPointWithinArea} from "../../../lib/touches";
+import { isPointWithinArea} from "../../constants/touches";
+import { moveArrayElement} from "../../constants/funcs";
 
 
 export default class TagsReorder extends React.Component {

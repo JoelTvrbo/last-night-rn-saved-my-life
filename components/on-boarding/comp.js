@@ -13,7 +13,7 @@ import {
 import {width,height} from "../../constants/device";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
-import Button, { looks } from "../../components/btn";
+import Button, { looks } from "../../components/bootstrap/btn";
 import Surface from "./surface";
 
 const Fake = [

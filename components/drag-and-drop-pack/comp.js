@@ -11,8 +11,8 @@ import {
   AsyncStorage
 } from "react-native";
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { width, height,statusbar } from "../constants/device";
-import Theme from "../constants/theme";
+import { width, height,statusbar } from "../../constants/device";
+import Theme from "../../constants/theme";
 import BigSlider from "react-native-big-slider";
 
 

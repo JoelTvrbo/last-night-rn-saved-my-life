@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Text, TouchableOpacity } from "react-native";
 import PropTypes from "prop-types";
+import { wide, tall, height, width } from "../../constants/device";
 
 // USE IT
 // import Button, { looks } from "./comps/bootstrap/btn";
@@ -20,6 +21,7 @@ export const looks = {
 
 const common = {
   height: 100,
+  width:'100%',
   justifyContent: "center",
   alignItems: "center"
 };

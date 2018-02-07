@@ -6,9 +6,8 @@ import Theme from '../constants/theme';
 
 import OnBoardingScreen from '../screens/OnBoardingScreen';
 import ConnectScreen from '../screens/ConnectScreen';
-import SettingsScreen from '../screens/SettingsScreen';
 import DropZonesScreen from '../screens/DropZonesScreen';
-import PackScreen from '../screens/PackScreens';
+import PackScreen from '../screens/PackScreen';
 import HoodScreen from '../screens/HoodScreen';
 import ReOrderScreen from '../screens/ReOrderScreen';
 import DeckScreen from '../screens/DeckScreen';

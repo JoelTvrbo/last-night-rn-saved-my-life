@@ -23,6 +23,7 @@ import { color, type } from "../constants/theme";
 import Card from '../components/drag-and-drop-deck/comp';
 import Button, { looks } from "../components/bootstrap/btn";
 
+
 var types = [
   {
     title :"♠︎",

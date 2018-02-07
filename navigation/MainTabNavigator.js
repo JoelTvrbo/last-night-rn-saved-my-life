@@ -10,7 +10,6 @@ import Theme from '../constants/theme';
 
 import OnBoardingScreen from '../screens/OnBoardingScreen';
 import ConnectScreen from '../screens/ConnectScreen';
-import SettingsScreen from '../screens/SettingsScreen';
 
 export default TabNavigator(
   {
@@ -37,9 +36,6 @@ export default TabNavigator(
           case 'Connect':
             iconName = Platform.OS === 'ios' ? `ios-link${focused ? '' : '-outline'}` : 'md-link';
             break;
-          case 'Settings':
-            iconName =
-              Platform.OS === 'ios' ? `ios-options${focused ? '' : '-outline'}` : 'md-options';
         }
         return (
           <Ionicons

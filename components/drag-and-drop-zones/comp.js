@@ -14,8 +14,9 @@ import {
   findNodeHandle,
   UIManager
 } from "react-native";
-import { width, height } from "../constants/device";
-import Theme from "../constants/theme";
+import {width,height} from "../../constants/device";
+
+import Theme from "../../constants/theme";
 import { Ionicons } from "@expo/vector-icons";
 
 const dnd = [

@@ -8,7 +8,7 @@ import {
   Text
 } from "react-native";
 
-import {width} from "../../../lib/device";
+import { width} from "../../constants/device";
 
 const cyan = "cyan";
 const colors = {

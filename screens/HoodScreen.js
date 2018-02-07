@@ -10,7 +10,7 @@ import {
   SafeAreaView
 } from 'react-native';
 
-import Hood from "./components/drag-and-drop-hood/comp";
+import Hood from "../components/drag-and-drop-hood/comp";
 
 const cyan = "cyan";
 const colors = {

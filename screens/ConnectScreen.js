@@ -1,11 +1,12 @@
 import React from 'react';
-import { ScrollView, View,StyleSheet } from 'react-native';
-import Button, { looks } from "../components/btn";
+import { ScrollView, View,StyleSheet,Text } from 'react-native';
+import Button, { looks } from "../components/bootstrap/btn";
 import Header from "../components/bootstrap/header";
 import Switch from "../components/bootstrap/switch";
 import Clock from "../components/bootstrap/clock";
 import Toggle from "../components/bootstrap/toggle";
 import OnBoarding from '../components/on-boarding/comp';
+import { wide, tall, height, width } from "../constants/device";
 
 import { Ionicons } from "@expo/vector-icons";
 import {
@@ -14,14 +15,10 @@ import {
 
 
 
-
-
 const Title = _ => <Text>Connect!</Text>;
 const SubTitle = _ => <Text>Use your fav service</Text>;
 
 const Spacer = _ => <View style={{ height: tall, opacity: 0 }} />;
-
-
 
 export default class ConnectScreen extends React.Component {
   static navigationOptions = {
@@ -62,9 +59,10 @@ export default class ConnectScreen extends React.Component {
         flexDirection: "column",
         justifyContent: "space-around",
         alignItems: "center",
-        flex: 1,
-        paddingTop: 15,
-        backgroundColor: '#fff',
+        paddingVertical: 15,
+        backgroundColor: '#ddd',
+        flexGrow:1,
+        minHeight:height*2
       }}>
          <Header
             style={{ backgroundColor: "pink", width: "100%", padding: 40 }}
@@ -77,18 +75,29 @@ export default class ConnectScreen extends React.Component {
           <Button look={looks.comboLeft} handleClick={this.click} label={"Login"} />
           <Button look={looks.comboRight} handleClick={this.click} label={"Register"} />
         </View>
+        <Spacer />
 
         <Button look={looks.primary} handleClick={this.goToOnBoard} label={"OnBoarding"} />
+        <Spacer />
+       
         <Button look={looks.primary} handleClick={this.goToDropZones} label={"Drop zones"} />
+        <Spacer />
+
         <Button look={looks.primary} handleClick={this.goToHood} label={"Hood"} />
+        <Spacer />
+
         <Button look={looks.primary} handleClick={this.goToPack} label={"Pack"} />
+        <Spacer />
       
         <Button look={looks.primary} handleClick={this.goToReOrder} label={"Reorder"} />
+        <Spacer />
+
         <Button look={looks.primary} handleClick={this.goToDeck} label={"Deck"} />
+        <Spacer />
       
         <Spacer />
           <Switch
-            currentStatus={"Open"}
+            current={1}
             disableScroll={value => {
               console.log("scrollEnabled", value);
               // this.scrollView.setNativeProps({
@@ -96,8 +105,8 @@ export default class ConnectScreen extends React.Component {
               // });
             }}
             isParentScrollEnabled={false}
-            onStatusChanged={text => {
-              console.log("Change Status ", text);
+            onStatusChanged={idx => {
+              console.log("Current idx ", idx);
             }}
           />
           <Spacer />

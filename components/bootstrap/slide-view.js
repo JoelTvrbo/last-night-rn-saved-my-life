@@ -9,11 +9,10 @@ import {
   LayoutAnimation,
   UIManager,
 } from "react-native";
-import K from "./lib/util";
-
+import {width} from "../../../constants/device";
 import { Ionicons } from "@expo/vector-icons";
-import Button, { looks } from "./comps/btn";
-import Images from "./assets";
+import Button, { looks } from "./btn";
+import Images from "../../assets";
 
 export default class App extends React.Component {
   state = {
@@ -102,7 +101,7 @@ export default class App extends React.Component {
   render() {
     const notificationTranslateY = this.state.animation.interpolate({
       inputRange: [0, 0.7, 1],
-      outputRange: [K.viewport.width + 100, 100, 0]
+      outputRange: [width + 100, 100, 0]
     });
 
     const notificationTransformStyle = {
