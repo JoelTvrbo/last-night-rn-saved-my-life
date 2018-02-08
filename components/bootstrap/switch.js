@@ -16,7 +16,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { width, wide } from "../../constants/device";
 
 const config = {
-  duration: 100,
+  duration: 50,
   iconSize: 25
 };
 const items = [
@@ -86,21 +86,22 @@ export default class Switch extends React.Component {
           this.props.disableScroll(false);
           this.isParentScrollDisabled = true;
         }
-
+        const pos = this.output(this.state.idx);
+        this.state.position.setOffset(pos);
         this.state.position.setValue(0);
       },
 
       onPanResponderMove: (evt, gestureState) => {
-        const { moveX, numberActiveTouches } = gestureState;
+        const { dx,moveX, numberActiveTouches } = gestureState;
         
 
         if (numberActiveTouches > 1) return;
-        if (moveX >= wide <= width - wide){
+
             this.state.position.setValue(
-                evt.nativeEvent.pageX
+                dx
             );
-        } else return false;
-      },
+      
+          },
 
       onPanResponderTerminationRequest: () => true,
 
@@ -120,7 +121,7 @@ export default class Switch extends React.Component {
           this.handleChange(3);
         } 
         
-    // this.state.position.flattenOffset();
+    this.state.position.flattenOffset();
       },
 
       onPanResponderTerminate: () => {},
@@ -132,19 +133,17 @@ export default class Switch extends React.Component {
     });
   }
 
-  getValAnim(val){
-    const x = val === 1
-    ? 0
-    : val === 2
-      ? this.state.ctn / 3 
-      : this.state.ctn / 3 * 2;
-      return x;
+  output(idx){
+    if (idx == 1) return 0;
+    if (idx == 2) return this.state.ctn / 3;
+    if (idx == 3) return this.state.ctn / 3 * 2;
   }
-
 
   handleChange(idx) {
     const curr = items.find(item => item.uid === idx);
-    const pos = this.getValAnim(idx);
+
+    const pos = this.output(idx);
+
     this.setState(
       {
         current: curr,
@@ -159,6 +158,8 @@ export default class Switch extends React.Component {
     )
     );
   }
+
+
   render() {
     return (
       <View
@@ -184,7 +185,11 @@ export default class Switch extends React.Component {
           style={[
             styles.switcher,
             {
-              left: this.state.position
+              transform:[
+                
+              {translateX:this.state.position //translation
+              
+              }]
             
             }
           ]}

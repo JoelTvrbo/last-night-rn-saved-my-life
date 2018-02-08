@@ -105,7 +105,7 @@ export default class DeckScreen extends React.Component {
 const styles = StyleSheet.create({
   ctn: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#eee',
   }
 });
 

@@ -24,7 +24,7 @@ export default class SettingsScreen extends React.Component {
     return (
       <SafeAreaView style={styles.ctn}>
 
-<DroppieFlatlist
+<Pack
             items={fake}
             Pressed={() => navigate("Read")}
           /> 
