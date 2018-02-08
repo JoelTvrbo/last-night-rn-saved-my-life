@@ -52,7 +52,8 @@ export default class Switch extends React.Component {
     position: new Animated.Value(0),
     current: items[0],
     idx: 1,
-    ctn: 0
+    ctn: 0,
+    xx: new Animated.Value(0)
   };
 
   measureRef(ref, key) {
@@ -70,9 +71,13 @@ export default class Switch extends React.Component {
 
   componentDidMount() {
     this.isParentScrollDisabled = false;
+    this.xx =0;
+    this.panListener = this.state.xx.addListener((value) => this.xx = value);
+  }
+  componentWillUnmount(){
+    this.state.xx.removeListener(this.panListener);
   }
   componentWillMount() {
-
 
     this._panResponder = PanResponder.create({
       onStartShouldSetPanResponder: () => true,
@@ -86,21 +91,14 @@ export default class Switch extends React.Component {
           this.props.disableScroll(false);
           this.isParentScrollDisabled = true;
         }
-        const pos = this.output(this.state.idx);
-        this.state.position.setOffset(pos);
-        this.state.position.setValue(0);
+        this.state.xx.setOffset(this.xx);
+        this.state.xx.setValue(0);
       },
 
-      onPanResponderMove: (evt, gestureState) => {
-        const { dx,moveX, numberActiveTouches } = gestureState;
-        
-
-        if (numberActiveTouches > 1) return;
-
-            this.state.position.setValue(
-                dx
-            );
-      
+      onPanResponderMove: (evt, gestureState) =>  { Animated.event([null, { dx: this.state.xx }])(
+              evt,
+              gestureState
+            )
           },
 
       onPanResponderTerminationRequest: () => true,
@@ -109,7 +107,6 @@ export default class Switch extends React.Component {
         const { moveX } = gestureState;
         this.isParentScrollDisabled = false;
         this.props.disableScroll(true);
-
         if (moveX >= 0 && moveX <= this.state.ctn / 3) {
           this.handleChange(1);
         } else if (
@@ -121,7 +118,10 @@ export default class Switch extends React.Component {
           this.handleChange(3);
         } 
         
-    this.state.position.flattenOffset();
+    this.state.xx.setOffset(this.xx);
+    this.state.xx.setValue(0);
+
+
       },
 
       onPanResponderTerminate: () => {},

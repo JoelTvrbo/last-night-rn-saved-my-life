@@ -36,8 +36,8 @@ const config = {
   width: Math.floor(width / 4 - 20)
 };
 
-const getProp = (src, k, key) => {
-  return src.filter(el => el.ref === k).map(el => el[key])[0];
+const getProp = (src, k, output) => {
+  return src.filter(el => el.ref === k).map(el => el[output])[0];
 };
 
 export default class App extends React.Component {
@@ -64,10 +64,13 @@ export default class App extends React.Component {
   }
 
   start = k => {
-
-    const xx = getProp(this.state.draggables, k, "pageX");
+    const xx = getProp(this.state.draggables, k, "x");
     const yy = getProp(this.state.draggables, k, "pageY");
 
+console.log(this.state.dropZones)
+    
+console.log(xx,yy)
+    
     this.setState(
       {
           animating: true,
@@ -187,13 +190,13 @@ export default class App extends React.Component {
     });
   }
 
-  // setUpList(y) {
-  //   const val = y + config.margin;
-  //   this.setState({
-  //     list: y,
-  //     dy: val
-  //   });
-  // }
+  setUpList(y) {
+    const val = y + config.margin;
+    this.setState({
+      list: y,
+      dy: val
+    });
+  }
 
   renderDrag() {
     return (
@@ -232,14 +235,14 @@ export default class App extends React.Component {
         ref={el => {
           this.list = el;
         }}
-        // onLayout={({ nativeEvent }) => {
-        //   UIManager.measure(
-        //     findNodeHandle(this.list),
-        //     (x, y, width, height) => {
-        //       this.setUpList(y);
-        //     }
-        //   );
-        // }}
+        onLayout={({ nativeEvent }) => {
+          UIManager.measure(
+            findNodeHandle(this.list),
+            (x, y, width, height) => {
+              this.setUpList(y);
+            }
+          );
+        }}
         data={this.state.data}
         numColumns={4}
         keyExtractor={this._keyExtractor}
@@ -268,6 +271,8 @@ export default class App extends React.Component {
                   const iam = {
                     x,
                     y,
+                    width,
+                    height,
                     pageX,
                     pageY,
                     ref: item.key

@@ -50,10 +50,8 @@ export default class TagReorder extends React.Component {
       >
         <TouchableOpacity
           style={this.getTagStyle()}
-          onPress={this.onPress}
+          onLongPress={this.onPress}
         >
-          <Ionicons name="ios-close-circle-outline" size={16} color="#FFF" />
-          <Text>{' '}</Text>
           <Text style={styles.title}>{title}</Text>
         </TouchableOpacity>
 </View>
@@ -64,7 +62,6 @@ export default class TagReorder extends React.Component {
 
 TagReorder.propTypes = {
   tag: PropTypes.object,
-  onPress: PropTypes.func,
   onPress: PropTypes.func // (tag: TagObject, screenX: number, screenY: number, width: number, height: number)
   
 };
@@ -81,9 +78,9 @@ const styles = {
       alignItems: 'center',
       backgroundColor: 'rgba(255, 255, 255, .33)',
       borderColor: 'rgba(255, 255, 255, .25)',
-      width:60,
-      height:60,
-      borderRadius: 30,
+      width:100,
+      height:100 ,
+      borderRadius: 50,
       borderWidth: 1,
       // paddingHorizontal: 10,
       // paddingVertical: 13,

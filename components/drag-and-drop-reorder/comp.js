@@ -46,6 +46,7 @@ constructor(props) {
         // Find the tag below user's finger at given coordinates
         const tag = this.findTagAtCoordinates(moveX, moveY);
         
+        
 
         if (tag) {
         this.tagBeingDragged = tag;
@@ -53,6 +54,8 @@ constructor(props) {
         } else {
           return false;
         }
+
+
 
 
       },
