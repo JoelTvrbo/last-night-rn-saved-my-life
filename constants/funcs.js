@@ -1,34 +1,25 @@
-// var one = () => 1;
-// var two = () => 2;
-// var three = () => 3;
 
 export const spreadProps = (props) =>{
   const user = extractUser(props);
   const fudge = calculateFudge();
   const bits = computeBits();
   return <SomeComponent {...{ user, fudge, bits }} />;
+}
+
+const logUsers = (users= [
+  { user: "Name1" },
+  { user: "Name2", age: 2 },
+  { user: "Name2" },
+  { user: "Name3", age: 4 }
+  ]) => {
+  for (let { user, age = "DEFAULT AGE" } of users) {
+    console.log(user, age);
   }
-
-const throwIfMissing = () => {
-  throw new Error('Missing parameter');
-}
-export const funcWithRequiredParam = (requiredParam = throwIfMissing()) => {
 }
 
-
-// var users = [
-// { user: "Name1" },
-// { user: "Name2", age: 2 },
-// { user: "Name2" },
-// { user: "Name3", age: 4 }
-// ];
-
-// for (let { user, age = "DEFAULT AGE" } of users) {
-// console.log(user, age);
-// }
-
-
-
+// var one = () => 1;
+// var two = () => 2;
+// var three = () => 3;
 // [one,two,three].map( fn => fn() );
 // => [1,2,3]
 
@@ -53,7 +44,6 @@ export const funcWithRequiredParam = (requiredParam = throwIfMissing()) => {
 //     'ruler'
 //   ]
 // };
-
 
 export const get = property => object => object[property];
 export const getId = get('id');
@@ -114,7 +104,6 @@ export const moveArrayElement = (array, from, to, mergeProps) => {
   ];
 };
 
-
 export function shuffle(o) {
   for (var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
   return o;
@@ -143,8 +132,6 @@ export function shuffle(o) {
 // const map2 = getMap(ordered);
 // // returned the same map as before - no recomputation required
 // const map1 === map2;
-
-
 
 
 

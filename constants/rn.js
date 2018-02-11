@@ -1,6 +1,5 @@
 // MEASURE 
 
-
 // measureRef(ref, key) {
 //   requestAnimationFrame(() => {
 //     ref.measure((ox, oy, width, height, px, py) => {
@@ -26,12 +25,6 @@
 //   this.view.measureInWindow( ({x,y,width,height}) => {
 //   })
 // }
-
-
-
-
-
-
 
 
 // ANIMATED 

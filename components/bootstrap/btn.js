@@ -28,12 +28,16 @@ const common = {
   alignItems: "center"
 };
 
-propsToStyles = name => {
-  if (name === "primary") return { backgroundColor: "cyan" };
-  if (name === "secondary") return { backgroundColor: "magenta" };
-  if (name === "disabled") return { backgroundColor: "#bbb" };
-  if (name === "first") return { width: "50%", backgroundColor: "cyan" };
-  if (name === "last") return { width: "50%", backgroundColor: "yellow" };
+const requiredParam = () => {
+  throw new Error('Missing required look parameter');
+}
+
+propsToStyles = (look = requiredParam() ) => {
+  if (look === "primary") return { backgroundColor: "cyan" };
+  if (look === "secondary") return { backgroundColor: "magenta" };
+  if (look === "disabled") return { backgroundColor: "#bbb" };
+  if (look === "first") return { width: "50%", backgroundColor: "cyan" };
+  if (look === "last") return { width: "50%", backgroundColor: "yellow" };
 };
 
 const defaultHandleClick = _ => alert("Feature to be coded");
