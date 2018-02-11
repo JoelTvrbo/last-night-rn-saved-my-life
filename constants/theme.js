@@ -1,6 +1,5 @@
-import { Dimensions,Platform,StyleSheet } from 'react-native';
-const width = Dimensions.get('window').width;
-const height = Dimensions.get('window').height;
+import { Dimensions, Platform, StyleSheet } from 'react-native';
+const {width,height} = Dimensions.get('window');
 
 const fontSize = (baseline) => {
     if(height === 568) {
@@ -13,16 +12,13 @@ const fontSize = (baseline) => {
     return baseline
 }
 
-
-const base = "#5c41ec";
+const base = "#222";
 const colors = {
   base,
-  a:"#92ead3",
-  b:"#f9d397",
-  c:"#ef92ca",
-  d:"#f7ee78",
-  notificationBg: base,
-  notificationText: "#fff"
+  a:"#00aaff",
+  b:"#00ffaa",
+  c:"rgb(255, 170, 213)",
+  white: "#fbfbfb"
 };
 
 const fonts = {
@@ -35,9 +31,8 @@ const fonts = {
   secondary:'Cochin'
 }
 
-
 const Theme = {
-    hairline:StyleSheet.hairlineWidth,
+    line:StyleSheet.hairlineWidth,
     color: colors,
     type: fonts
   };

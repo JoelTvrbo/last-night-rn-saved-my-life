@@ -2,6 +2,33 @@
 // var two = () => 2;
 // var three = () => 3;
 
+export const spreadProps = (props) =>{
+  const user = extractUser(props);
+  const fudge = calculateFudge();
+  const bits = computeBits();
+  return <SomeComponent {...{ user, fudge, bits }} />;
+  }
+
+const throwIfMissing = () => {
+  throw new Error('Missing parameter');
+}
+export const funcWithRequiredParam = (requiredParam = throwIfMissing()) => {
+}
+
+
+// var users = [
+// { user: "Name1" },
+// { user: "Name2", age: 2 },
+// { user: "Name2" },
+// { user: "Name3", age: 4 }
+// ];
+
+// for (let { user, age = "DEFAULT AGE" } of users) {
+// console.log(user, age);
+// }
+
+
+
 // [one,two,three].map( fn => fn() );
 // => [1,2,3]
 

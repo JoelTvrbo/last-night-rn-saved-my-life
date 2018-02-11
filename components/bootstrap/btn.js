@@ -1,43 +1,46 @@
 import React, { Component } from "react";
 import { Text, TouchableOpacity } from "react-native";
 import PropTypes from "prop-types";
-import { wide, tall, height, width } from "../../constants/device";
+import { height } from "../../constants/device";
 
 // USE IT
 // import Button, { looks } from "./comps/bootstrap/btn";
 
 // <Button look={looks.secondary} handleClick={this.toggleNotification} label={"Ok, thanks!"} />
 // <View style={{ flexDirection: "row" }}>
-//   <Button look={looks.comboLeft} handleClick={this.toggleNotification} label={"Ok, thanks!"} />
-//   <Button look={looks.comboRight} handleClick={this.toggleNotification} label={"Ok, thanks!"} />
+//   <Button look={looks.first} handleClick={this.toggleNotification} label={"Ok, thanks!"} />
+//   <Button look={looks.last} handleClick={this.toggleNotification} label={"Ok, thanks!"} />
 // </View>
 
 export const looks = {
   primary: "primary",
   secondary: "secondary",
-  comboLeft: "comboLeft",
-  comboRight: "comboRight"
+  disabled:"disabled",
+  first: "first",
+  last: "last"
 };
 
 const common = {
-  height: 100,
+  minHeight:80,
+  height: height / 7,
   width:'100%',
   justifyContent: "center",
   alignItems: "center"
 };
 
-propsStyles = name => {
+propsToStyles = name => {
   if (name === "primary") return { backgroundColor: "cyan" };
   if (name === "secondary") return { backgroundColor: "magenta" };
-  if (name === "comboLeft") return { width: "50%", backgroundColor: "cyan" };
-  if (name === "comboRight") return { width: "50%", backgroundColor: "yellow" };
+  if (name === "disabled") return { backgroundColor: "#bbb" };
+  if (name === "first") return { width: "50%", backgroundColor: "cyan" };
+  if (name === "last") return { width: "50%", backgroundColor: "yellow" };
 };
 
-const defaultHandleClick = _ => alert("Funcionalidad aún no implementada");
+const defaultHandleClick = _ => alert("Feature to be coded");
 
 const Button = props => (
   <TouchableOpacity
-    style={[common, propsStyles(props.look)]}
+    style={[common, propsToStyles(props.look)]}
     onPress={props.handleClick ? props.handleClick : defaultHandleClick}
   >
     <Text>{props.label}</Text>

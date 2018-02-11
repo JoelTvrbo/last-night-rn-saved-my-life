@@ -72,8 +72,8 @@ export default class ConnectScreen extends React.Component {
 
           <Spacer />
      <View style={{ flexDirection: "row" }}>
-          <Button look={looks.comboLeft} handleClick={this.click} label={"Login"} />
-          <Button look={looks.comboRight} handleClick={this.click} label={"Register"} />
+          <Button look={looks.first} handleClick={this.click} label={"Login"} />
+          <Button look={looks.last} handleClick={this.click} label={"Register"} />
         </View>
         <Spacer />
 

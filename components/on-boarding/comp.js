@@ -177,12 +177,12 @@ export default class OnBoarding extends React.Component {
 
         <View style={{ flexDirection: "row" }}>
           <Button
-            look={looks.comboLeft}
+            look={looks.first}
             handleClick={this.prevSlide}
             label={"prev!"}
           />
           <Button
-            look={looks.comboRight}
+            look={looks.last}
             handleClick={this.nextSlide}
             label={"next!"}
           />
