@@ -32,7 +32,7 @@ propsToStyles = (look = requiredParam() ) => {
   if (look === "last") return { width: "50%", backgroundColor: Theme.color.beta };
 };
 
-const defaultHandleClick = _ => alert("Feature to be coded");
+const defaultHandleClick = _ => alert("Feature not yet coded");
 
 const Button = props => (
   <TouchableOpacity
@@ -51,8 +51,6 @@ Button.propTypes = {
 
 
 // USE IT
-
-// import Button, { looks } from "./comps/bootstrap/btn";
 
 // <Button look={looks.alpha} handleClick={this.toggleNotification} label={"Ok, thanks!"} />
 
