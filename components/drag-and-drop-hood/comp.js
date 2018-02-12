@@ -279,7 +279,7 @@ export default class Hood extends React.Component {
             alignItems: "center",
             justifyContent: "center",
             height: cellWidth * 4 + 10,
-            backgroundColor: isError ? Theme.color.primary: Theme.color.white
+            backgroundColor: isError ? Theme.color.alpha: Theme.color.white
           }}
           onLayout={this.initDrop}
         >
@@ -295,7 +295,7 @@ export default class Hood extends React.Component {
                 opacity:
                   neighboursIdx && neighboursIdx.includes(item.key) ? 0.2 : 1,
                 backgroundColor:
-                  this.state.targetDropped === item.key ? Theme.color.secondary : "yellow"
+                  this.state.targetDropped === item.key ? Theme.color.beta : "yellow"
               }}
             >
               <Text style={Object.assign(gridLabelStyles, labelStyles)}>
@@ -315,7 +315,7 @@ export default class Hood extends React.Component {
                 panStyle,
                 styles.circle,
                 {
-                  backgroundColor: this.state.dragging ? Theme.color.primary : Theme.color.disabled,
+                  backgroundColor: this.state.dragging ? Theme.color.alpha : Theme.color.disabled,
                   opacity: this.state.opacity
                 }
               ]}

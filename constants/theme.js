@@ -15,10 +15,12 @@ const fontSize = (baseline) => {
 const base = "#222";
 const colors = {
   base,
-  primary:"#92ead3",
-  secondary:"#ef92ca",
+  alpha:"#92ead3",
+  beta:"#ef92ca",
   disabled:"rgb(255, 170, 213)",
-  white: "#fbfbfb",
+  palpatine:'rgba(0,0,0,1)',
+  vader:'rgba(0,0,0,.6)',
+  luke: "#fbfbfb",
   bg:"#ddd"
 };
 
@@ -27,9 +29,10 @@ const fonts = {
   md: fontSize(18),
   lg: fontSize(28),
   xl: fontSize(36),
-  regular: 'Avenir',
+  alpha: 'Avenir',
   bold: 'Avenir-Black',
-  secondary:'Cochin'
+  beta:'Cochin'
+  
 }
 
 const Theme = {

@@ -137,7 +137,7 @@ export default class App extends React.Component {
     return (
       <View style={styles.backgroundContainer}>
         <Button
-          look={looks.primary}
+          look={looks.alpha}
           handleClick={this.toggleNotification}
           label={"Tap me!"}
         />
@@ -164,7 +164,7 @@ export default class App extends React.Component {
               </Text>
             </Animated.View>
             <Button
-              look={looks.primary}
+              look={looks.alpha}
               handleClick={this.toggleNotification}
               label={"Ok, thanks!"}
             />

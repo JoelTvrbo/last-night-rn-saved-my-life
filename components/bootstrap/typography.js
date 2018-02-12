@@ -1,31 +1,30 @@
 // import { Platform, StyleSheet,Text,View } from "react-native";
-// import K from "./lib/util";
 // import Icon from "react-native-vector-icons/SimpleLineIcons";
 
 // const styles = StyleSheet.create({
 //     title: {
-//     fontSize: K.type.lg,
-//     fontFamily: K.type.secondary,
+//     fontSize: Theme.type.lg,
+//     fontFamily: Theme.type.beta,
 //     backgroundColor: "transparent",
 //   },
 //   titlexl: {
-//     fontSize: K.type.xl,
-//     fontFamily: K.type.secondary,
+//     fontSize: Theme.type.xl,
+//     fontFamily: Theme.type.beta,
 //     backgroundColor: "transparent",
 //   },
 //   titlebold: {
-//     fontSize: K.type.lg,
-//     fontFamily: K.type.bold,
+//     fontSize: Theme.type.lg,
+//     fontFamily: Theme.type.bold,
 //     backgroundColor: "transparent",
 //   },
 //   body: {
-//     fontSize: K.type.md,
-//     fontFamily: K.type.regular,
+//     fontSize: Theme.type.md,
+//     fontFamily: Theme.type.regular,
 //     backgroundColor: "transparent",
 //   },
 //   bodybold: {
-//     fontSize: K.type.md,
-//     fontFamily: K.type.bold,
+//     fontSize: Theme.type.md,
+//     fontFamily: Theme.type.bold,
 //     backgroundColor: "transparent",
 //   },
 //   icon: {

@@ -70,19 +70,19 @@ export default class ConnectScreen extends React.Component {
           </View>
           <Spacer />
 
-          <Button look={looks.primary} handleClick={this.goToOnBoard} label={"OnBoarding"} />
+          <Button look={looks.alpha} handleClick={this.goToOnBoard} label={"OnBoarding"} />
           <Spacer />
         
-          <Button look={looks.primary} handleClick={this.goToDropZones} label={"Drop zones"} />
+          <Button look={looks.alpha} handleClick={this.goToDropZones} label={"Drop zones"} />
           <Spacer />
 
-          <Button look={looks.primary} handleClick={this.goToHood} label={"Hood"} />
+          <Button look={looks.alpha} handleClick={this.goToHood} label={"Hood"} />
           <Spacer />
 
-          <Button look={looks.primary} handleClick={this.goToPack} label={"Pack"} />
+          <Button look={looks.alpha} handleClick={this.goToPack} label={"Pack"} />
           <Spacer />
         
-          <Button look={looks.primary} handleClick={this.goToReOrder} label={"Reorder"} />
+          <Button look={looks.alpha} handleClick={this.goToReOrder} label={"Reorder"} />
           <Spacer />
 
           <Button look={looks.disabled} handleClick={this.goToDeck} label={"Deck"} />
