@@ -2,15 +2,7 @@ import React, { Component } from "react";
 import { Text, TouchableOpacity } from "react-native";
 import PropTypes from "prop-types";
 import { height } from "../../constants/device";
-
-// USE IT
-// import Button, { looks } from "./comps/bootstrap/btn";
-
-// <Button look={looks.secondary} handleClick={this.toggleNotification} label={"Ok, thanks!"} />
-// <View style={{ flexDirection: "row" }}>
-//   <Button look={looks.first} handleClick={this.toggleNotification} label={"Ok, thanks!"} />
-//   <Button look={looks.last} handleClick={this.toggleNotification} label={"Ok, thanks!"} />
-// </View>
+import Theme from "../../constants/theme";
 
 export const looks = {
   primary: "primary",
@@ -33,11 +25,11 @@ const requiredParam = () => {
 }
 
 propsToStyles = (look = requiredParam() ) => {
-  if (look === "primary") return { backgroundColor: "cyan" };
-  if (look === "secondary") return { backgroundColor: "magenta" };
-  if (look === "disabled") return { backgroundColor: "#bbb" };
-  if (look === "first") return { width: "50%", backgroundColor: "cyan" };
-  if (look === "last") return { width: "50%", backgroundColor: "yellow" };
+  if (look === "primary") return { backgroundColor: Theme.color.primary };
+  if (look === "secondary") return { backgroundColor: Theme.color.secondary };
+  if (look === "disabled") return { backgroundColor: Theme.color.disabled};
+  if (look === "first") return { width: "50%", backgroundColor: Theme.color.primary };
+  if (look === "last") return { width: "50%", backgroundColor: Theme.color.secondary };
 };
 
 const defaultHandleClick = _ => alert("Feature to be coded");
@@ -56,3 +48,15 @@ export default Button;
 Button.propTypes = {
   appearance: PropTypes.oneOf(Object.keys(looks))
 };
+
+
+// USE IT
+
+// import Button, { looks } from "./comps/bootstrap/btn";
+
+// <Button look={looks.secondary} handleClick={this.toggleNotification} label={"Ok, thanks!"} />
+
+// <View style={{ flexDirection: "row" }}>
+//   <Button look={looks.first} handleClick={this.toggleNotification} label={"Ok, thanks!"} />
+//   <Button look={looks.last} handleClick={this.toggleNotification} label={"Ok, thanks!"} />
+// </View>

@@ -15,10 +15,11 @@ const fontSize = (baseline) => {
 const base = "#222";
 const colors = {
   base,
-  a:"#00aaff",
-  b:"#00ffaa",
-  c:"rgb(255, 170, 213)",
-  white: "#fbfbfb"
+  primary:"#92ead3",
+  secondary:"#ef92ca",
+  disabled:"rgb(255, 170, 213)",
+  white: "#fbfbfb",
+  bg:"#ddd"
 };
 
 const fonts = {

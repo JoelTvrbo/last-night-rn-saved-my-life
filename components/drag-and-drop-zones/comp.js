@@ -15,21 +15,10 @@ import {
   UIManager
 } from "react-native";
 import {width,height} from "../../constants/device";
-
 import Theme from "../../constants/theme";
 import { Ionicons } from "@expo/vector-icons";
 
-const dnd = [
-  { key: 1, nom: "Catalina" },
-  { key: 2, nom: "Romulo" },
-  { key: 3, nom: "Noooollo" },
-  { key: 4, nom: "Moro" },
-  { key: 5, nom: "Nura" },
-  { key: 6, nom: "Paura" },
-  { key: 7, nom: "Bulma" },
-  { key: 8, nom: "ulma" },
-  { key: 9, nom: "Serotonina" }
-];
+const arr = [ { key: 1, nom: "Catalina" }, { key: 2, nom: "Romulo" }, { key: 3, nom: "Noooollo" }, { key: 4, nom: "Moro" }, { key: 5, nom: "Nura" }, { key: 6, nom: "Paura" }, { key: 7, nom: "Bulma" }, { key: 8, nom: "ulma" }, { key: 9, nom: "Serotonina" } ];
 
 const config = {
   margin: 10,
@@ -59,73 +48,8 @@ export default class App extends React.Component {
 
   componentDidMount() {
     this.setState({
-      data: dnd
+      data: arr
     });
-  }
-
-  start = k => {
-    const xx = getProp(this.state.draggables, k, "x");
-    const yy = getProp(this.state.draggables, k, "pageY");
-
-console.log(this.state.dropZones)
-    
-console.log(xx,yy)
-    
-    this.setState(
-      {
-          animating: true,
-          dragging: k,
-          dx: xx,
-          dy: yy
-      },
-      () =>
-        Animated.timing(this.state.opacity, {
-          toValue: 1,
-          delay: 300
-        }).start()
-    );
-  };
-
-  drop(pos) {
-    if (!pos || pos.x === 0 || pos.y === 0) return this.resetPan();
-
-    const rawString = this.state.dropZones
-      .filter(
-        zone =>
-          pos.y <= zone.yd &&
-          pos.y >= zone.y &&
-          pos.x <= zone.xd &&
-          pos.x >= zone.x
-      )
-      .map(zone => zone.ref);
-    const string = rawString[0];
-
-    if (!string) {
-      return this.resetPan();
-    } else {
-
-      const k = this.state.dragging;
-
-      this[k].setNativeProps({
-        style: { opacity: 0.2 }
-      })
-
-      this.setState(
-        prevState => {
-          return {
-            droppedZone: string,
-            animating: false,
-            dragging: 0,
-          }
-        },
-        () => {
-          this[string].setNativeProps({
-            style: { backgroundColor: "cyan" }
-          })
-        }
-      );
-      return this.resetPan();
-    }
   }
 
   componentWillMount() {
@@ -168,11 +92,83 @@ console.log(xx,yy)
     }
   });
 
+  
+  // START DRAG AND DROP FROM DRAG
+
+  start = k => {
+    const xx = getProp(this.state.draggables, k, "x");
+    const yy = getProp(this.state.draggables, k, "pageY");
+    
+    this.setState(
+      {
+          animating: true,
+          dragging: k,
+          dx: xx,
+          dy: yy
+      },
+      () =>
+        Animated.timing(this.state.opacity, {
+          toValue: 1,
+          delay: 300
+        }).start()
+    );
+  };
+
+  drop(pos) {
+    if (!pos || pos.x === 0 || pos.y === 0) return this.resetPan();
+    const rawString = this.state.dropZones
+      .filter(
+        zone =>
+          pos.y <= zone.yd &&
+          pos.y >= zone.y &&
+          pos.x <= zone.xd &&
+          pos.x >= zone.x
+      )
+      .map(zone => zone.ref);
+  
+      const string = rawString[0];
+console.log(this.state.dropZones)
+console.log(string)
+    if (!string) {
+      return this.resetPan();
+    } else if (string === "empty") {
+      alert('Remove')
+    } else {
+
+      const k = this.state.dragging;
+
+      this[k].setNativeProps({
+        style: { opacity: 0.2 }
+      })
+
+      this.setState(
+        prevState => {
+          return {
+            droppedZone: string,
+            animating: false,
+            dragging: 0,
+          }
+        },
+        () => {
+          this[string].setNativeProps({
+            style: { backgroundColor: "cyan" }
+          })
+        }
+      );
+      return this.resetPan();
+    }
+  }
+
+
+  // RESET DRAGGABLE ELEMENT
+
   resetPan() {
     Animated.timing(this.state.opacity, {
       toValue: 0
     }).start();
   }
+
+  // MEASUREMENTS 
 
   updateZone(iam) {
     this.setState(prevState => {
@@ -197,6 +193,8 @@ console.log(xx,yy)
       dy: val
     });
   }
+
+  // SPLIT CONTENT INTO FUNCTIONS FOR A SLIMMER CLASS RENDER
 
   renderDrag() {
     return (
@@ -294,22 +292,23 @@ console.log(xx,yy)
     );
   }
 
+  _keyExtractor = (item, index) => item.key;
+
+  // STYLE HELPER
+
   getBgColor = index => {
     const idx = this.state.dragging;
     if (index === idx) {
-      return "#ff5";
-    } else return "#fff";
+      return Theme.color.primary;
+    } else return Theme.color.white;
   };
 
-  _keyExtractor = (item, index) => item.key;
-
+  
   render() {
     const DropZoneStyles = {
       width: width / 4,
       height: width / 4,
       backgroundColor: "#bbb",
-      borderWidth: 2,
-      borderColor: "#eee"
     };
     const DropZoneEmptyStyles = {
       width: 80,
@@ -332,10 +331,10 @@ console.log(xx,yy)
                 findNodeHandle(this.wishlist),
                 (x, y, width, height, pageX, pageY) => {
                   const iam = {
-                    x: Math.floor(pageX),
-                    xd: Math.floor(pageX + width),
-                    y: Math.floor(pageY),
-                    yd: Math.floor(pageY + height),
+                    x: Math.floor(x),
+                    xd: Math.floor(x + width),
+                    y: Math.floor(y),
+                    yd: Math.floor(y + height),
                     ref: "wishlist"
                   };
                   this.updateZone(iam);
@@ -355,10 +354,10 @@ console.log(xx,yy)
                 findNodeHandle(this.cart),
                 (x, y, width, height, pageX, pageY) => {
                   const iam = {
-                    x: Math.floor(pageX),
-                    xd: Math.floor(pageX + width),
-                    y: Math.floor(pageY),
-                    yd: Math.floor(pageY + height),
+                    x: Math.floor(x),
+                    xd: Math.floor(x + width),
+                    y: Math.floor(y),
+                    yd: Math.floor(y + height),
                     ref: "cart"
                   };
                   this.updateZone(iam);
@@ -382,10 +381,10 @@ console.log(xx,yy)
                 findNodeHandle(this.empty),
                 (x, y, width, height, pageX, pageY) => {
                   const iam = {
-                    x: Math.floor(pageX),
-                    xd: Math.floor(pageX + width),
-                    y: Math.floor(pageY),
-                    yd: Math.floor(pageY + height),
+                    x: Math.floor(x),
+                    xd: Math.floor(x + width),
+                    y: Math.floor(y),
+                    yd: Math.floor(y + height),
                     ref: "empty"
                   };
                   this.updateZone(iam);
@@ -408,7 +407,7 @@ console.log(xx,yy)
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: "#ddd",
+    backgroundColor:Theme.color.bg,
     position: "relative"
   },
   ctnDropZones: {

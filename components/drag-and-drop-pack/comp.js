@@ -96,6 +96,9 @@ export default class Pack extends React.Component {
     });
   }
 
+
+  // HELPERS TO FIND COORDINATES OF THE ONE CURRENTLY DRAGGING OVER // ATROCIUS CODE, NEEDS REFRACTORING
+  
   Yaxis = (newY, cell) => {
     const safeArea =
       ~~this.state.headerHeight + statusbar;
@@ -178,6 +181,7 @@ export default class Pack extends React.Component {
     }
   };
 
+  // REMOVE FROM ASYNC STORAGE
   unPack(uid) {
     const raw = this.state.packed.filter(x => x.key !== uid);
     const clean = [...new Set(raw)];
@@ -223,7 +227,7 @@ export default class Pack extends React.Component {
         headerHeight -
         statusbar,
       padding: 10,
-      backgroundColor: "#eee",
+      backgroundColor: Theme.color.bg,
       display: "flex",
       flexDirection: "row",
       flexWrap: "wrap",
@@ -261,7 +265,7 @@ export default class Pack extends React.Component {
           style={{
             width: width,
             height: width,
-            backgroundColor: isError ? "red" : "#fff"
+            backgroundColor: isError ? Theme.color.primary : Theme.color.white
           }}
           data={this.props.items}
           numColumns={4}
@@ -279,14 +283,14 @@ export default class Pack extends React.Component {
                 opacity: this.state.indexes.includes(item.key) ? 0.5 : 1,
                 backgroundColor:
                   this.state.targetDropped === item.key
-                    ? "cyan"
-                    : `rgba(0,0,0,.8)`
+                    ? Theme.color.secondary
+                    : Theme.color.primary
               }}
             >
               <View 
               style={[...StyleSheet.absoluteFillObject,{zIndex:1,flexDirection:'column', justifyContent:'center',alignItems:'center'}]}
               >
-              <MaterialCommunityIcons name="martini" size={55} color="#FFF" />
+              <MaterialCommunityIcons name="martini" size={55} color={Theme.color.white} />
             </View>
               <TouchableOpacity
                 onPress={() => this.unPack(item.key)}
@@ -296,8 +300,8 @@ export default class Pack extends React.Component {
                   style={{
                     color:
                       this.state.targetDropped === item.key
-                        ? "red"
-                        : "yellow"
+                        ? Theme.color.primary
+                        : Theme.color.secondary
                   }}
                 >
                   {item.key}
@@ -317,7 +321,7 @@ export default class Pack extends React.Component {
                 panStyle,
                 styles.circle,
                 {
-                  backgroundColor: this.state.dragging ? "#ff5" : "skyblue"
+                  backgroundColor: this.state.dragging ? Theme.color.secondary : Theme.color.primary
                   // opacity: this.state.opacity
                 }
               ]}
@@ -339,8 +343,8 @@ export default class Pack extends React.Component {
               // }}
               value={qty}
               label={`${qty.toFixed(0)}`}
-              style={{ backgroundColor: "rgba(0,0,0,.7)" }}
-              trackStyle={{ backgroundColor: "rgba(194, 61, 85, 1)" }}
+              style={{ backgroundColor: Theme.color.primary}}
+              trackStyle={{ backgroundColor:  Theme.color.secondary }}
               minimumValue={0}
               onValueChange={value => {
                 this.setState(function(prevState, props) {
@@ -355,12 +359,12 @@ export default class Pack extends React.Component {
   }
 }
 
-let CIRCLE_RADIUS = 30;
+let radix = 30;
 
 let styles = StyleSheet.create({
   ctn: {
     flex: 1,
-    backgroundColor: "#bbb"
+    backgroundColor:Theme.color.bg
   },
   header: {
     width: width,
@@ -382,16 +386,19 @@ let styles = StyleSheet.create({
     backgroundColor: 'magenta'
   },
   circle: {
-    backgroundColor: "skyblue",
-    width: CIRCLE_RADIUS * 2,
-    height: CIRCLE_RADIUS * 2,
-    borderRadius: CIRCLE_RADIUS
+    backgroundColor: Theme.color.disabled,
+    width: radix * 2,
+    height: radix * 2,
+    borderRadius: radix,
+    flexDirection:"column",
+    justifyContent:'center',
+    alignItems:"center"
   },
   placeholder: {
-    backgroundColor: "#bdbdbd",
-    width: CIRCLE_RADIUS * 2,
-    height: CIRCLE_RADIUS * 2,
-    borderRadius: CIRCLE_RADIUS
+    backgroundColor: Theme.color.bg,
+    width: radix * 2,
+    height: radix * 2,
+    borderRadius: radix
   }
 });
 

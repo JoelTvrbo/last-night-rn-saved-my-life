@@ -9,19 +9,7 @@ import {
 } from "react-native";
 
 import { width} from "../../constants/device";
-
-const cyan = "cyan";
-const colors = {
-  cyan,
-  yellow: "yellow",
-  beige: "beige",
-  vader: "#191919",
-  palpatine: "#252525",
-  kylo: "#aaa",
-  shaouron: "#ccc",
-  notificationBg: cyan,
-  notificationText: "#fff"
-};
+import Theme from "../../constants/theme";
 
 
 export default class Hood extends React.Component {
@@ -94,6 +82,8 @@ export default class Hood extends React.Component {
     });
   }
 
+
+  // HELPERS TO FIND CLOSE CELLS TO THE ONE CURRENTLY DRAGGING OVER // ATROCIUS CODE, NEEDS REFRACTORING
   isNeighbour = numb => {
     const toNumb = ~~numb;
     const firstCell = [toNumb, toNumb + 1, toNumb + 4];
@@ -151,20 +141,6 @@ export default class Hood extends React.Component {
     if (idx >= 5 && idx < 9) return 2;
     if (idx >= 8 && idx < 13) return 3;
     if (idx >= 12 && idx <= 16) return 4;
-  };
-
-  createGrid = amount => {
-    const grid = [];
-    for (let i = 1; i <= amount; i++) {
-      grid.push({
-        idx: i,
-        xi: ~~this.state.cellWidth * this.idxToMultiplierXi(i),
-        xf: ~~this.state.cellWidth * this.idxToMultiplierXf(i),
-        yi: ~~this.state.cellWidth * this.idxToMultiplierYi(i),
-        yf: ~~this.state.cellWidth * this.idxToMultiplierYf(i)
-      });
-    }
-    return grid;
   };
 
   findIdxOnHover = (coord, cellWidth) => {
@@ -236,6 +212,22 @@ export default class Hood extends React.Component {
     // );
   };
 
+  // STORE A FAKE GRID ON STATE SO THAT WE CAN FIGURE OUT LATER COORDINATES OF MOVE/DROP POSITIONS 
+  createGrid = amount => {
+    const grid = [];
+    for (let i = 1; i <= amount; i++) {
+      grid.push({
+        idx: i,
+        xi: ~~this.state.cellWidth * this.idxToMultiplierXi(i),
+        xf: ~~this.state.cellWidth * this.idxToMultiplierXf(i),
+        yi: ~~this.state.cellWidth * this.idxToMultiplierYi(i),
+        yf: ~~this.state.cellWidth * this.idxToMultiplierYf(i)
+      });
+    }
+    return grid;
+  };
+
+    
   initDrop = e => {
     this.setState({
       dropArea: {
@@ -253,21 +245,9 @@ export default class Hood extends React.Component {
   };
 
   render() {
-    const {
-      items,
-      ctnStyles,
-      itemStyles,
-      labelStyles,
-    } = this.props;
+    const { items, ctnStyles, itemStyles, labelStyles, } = this.props;
 
-    const {
-      dropArea,
-      cellWidth,
-      neighboursIdx,
-      animtest,
-      targetDropped,
-      isError
-    } = this.state;
+    const { dropArea, cellWidth, neighboursIdx, animtest, targetDropped, isError } = this.state;
 
     const panStyle = {
       transform: this.state.pan.getTranslateTransform()
@@ -288,8 +268,6 @@ export default class Hood extends React.Component {
       textAlign: "center"
     };
 
-    //  <Image blurRadius={10}/>
-
     return (
       <View style={styles.ctn}>
         <View
@@ -301,7 +279,7 @@ export default class Hood extends React.Component {
             alignItems: "center",
             justifyContent: "center",
             height: cellWidth * 4 + 10,
-            backgroundColor: isError ? "red" : "#fff"
+            backgroundColor: isError ? Theme.color.primary: Theme.color.white
           }}
           onLayout={this.initDrop}
         >
@@ -315,9 +293,9 @@ export default class Hood extends React.Component {
                 justifyContent: "center",
                 alignItems: "center",
                 opacity:
-                  neighboursIdx && neighboursIdx.includes(item.key) ? 0.6 : 1,
+                  neighboursIdx && neighboursIdx.includes(item.key) ? 0.2 : 1,
                 backgroundColor:
-                  this.state.targetDropped === item.key ? "#aaa" : "blue"
+                  this.state.targetDropped === item.key ? Theme.color.secondary : "yellow"
               }}
             >
               <Text style={Object.assign(gridLabelStyles, labelStyles)}>
@@ -337,7 +315,7 @@ export default class Hood extends React.Component {
                 panStyle,
                 styles.circle,
                 {
-                  backgroundColor: this.state.dragging ? "#ff5" : "skyblue",
+                  backgroundColor: this.state.dragging ? Theme.color.primary : Theme.color.disabled,
                   opacity: this.state.opacity
                 }
               ]}
@@ -351,29 +329,29 @@ export default class Hood extends React.Component {
   }
 }
 
-let CIRCLE_RADIUS = 30;
+let radix = 30;
 
 let styles = StyleSheet.create({
   ctn: {
     flex: 1,
-    backgroundColor: "#bbb",
+    backgroundColor: Theme.color.bg,
     flexDirection:"column",
     justifyContent:'space-between',
     alignItems:"center"
   },
   circle: {
-    backgroundColor: "skyblue",
-    width: CIRCLE_RADIUS * 2,
-    height: CIRCLE_RADIUS * 2,
-    borderRadius: CIRCLE_RADIUS,
+    backgroundColor: Theme.color.disabled,
+    width: radix * 2,
+    height: radix * 2,
+    borderRadius: radix,
     flexDirection:"column",
     justifyContent:'center',
     alignItems:"center"
   },
   placeholder: {
-    backgroundColor: "#bdbdbd",
-    width: CIRCLE_RADIUS * 2,
-    height: CIRCLE_RADIUS * 2,
-    borderRadius: CIRCLE_RADIUS
+    backgroundColor: Theme.color.bg,
+    width: radix * 2,
+    height: radix * 2,
+    borderRadius: radix
   }
 });

@@ -1,14 +1,6 @@
 import React from 'react';
-import {
-  Image,
-  Platform,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-  SafeAreaView
-} from 'react-native';
+import { StyleSheet, SafeAreaView } from 'react-native';
+import Theme from "../constants/theme";
 
 import DropZones from '../components/drag-and-drop-zones/comp';
 
@@ -30,6 +22,6 @@ export default class DropZonesScreen extends React.Component {
 const styles = StyleSheet.create({
   ctn: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor:Theme.color.bg,
   }
 });
