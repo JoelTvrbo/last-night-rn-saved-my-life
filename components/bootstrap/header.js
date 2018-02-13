@@ -1,7 +1,7 @@
 import React from "react";
 
 /*
-The props should now be built like this:
+props should now be built like this:
 {
   styles: {},
 }
@@ -14,6 +14,8 @@ export default Header = props =>
     {props.title}
     {props.subtitle}
   </View>
+  
+// USE IT
   
 // <Header title={<Title />} subtitle={<SubTitle />} /> 
 

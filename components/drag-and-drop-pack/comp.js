@@ -265,7 +265,7 @@ export default class Pack extends React.Component {
           style={{
             width: width,
             height: width,
-            backgroundColor: isError ? Theme.color.primary : Theme.color.white
+            backgroundColor: isError ? Theme.color.alpha : Theme.color.white
           }}
           data={this.props.items}
           numColumns={4}
@@ -283,8 +283,8 @@ export default class Pack extends React.Component {
                 opacity: this.state.indexes.includes(item.key) ? 0.5 : 1,
                 backgroundColor:
                   this.state.targetDropped === item.key
-                    ? Theme.color.secondary
-                    : Theme.color.primary
+                    ? Theme.color.beta
+                    : Theme.color.alpha
               }}
             >
               <View 
@@ -300,8 +300,8 @@ export default class Pack extends React.Component {
                   style={{
                     color:
                       this.state.targetDropped === item.key
-                        ? Theme.color.primary
-                        : Theme.color.secondary
+                        ? Theme.color.alpha
+                        : Theme.color.beta
                   }}
                 >
                   {item.key}
@@ -321,7 +321,7 @@ export default class Pack extends React.Component {
                 panStyle,
                 styles.circle,
                 {
-                  backgroundColor: this.state.dragging ? Theme.color.secondary : Theme.color.primary
+                  backgroundColor: this.state.dragging ? Theme.color.beta : Theme.color.alpha
                   // opacity: this.state.opacity
                 }
               ]}
@@ -343,8 +343,8 @@ export default class Pack extends React.Component {
               // }}
               value={qty}
               label={`${qty.toFixed(0)}`}
-              style={{ backgroundColor: Theme.color.primary}}
-              trackStyle={{ backgroundColor:  Theme.color.secondary }}
+              style={{ backgroundColor: Theme.color.alpha}}
+              trackStyle={{ backgroundColor:  Theme.color.beta }}
               minimumValue={0}
               onValueChange={value => {
                 this.setState(function(prevState, props) {

@@ -1,18 +1,11 @@
 import React, { Component } from "react";
 import { View } from "react-native";
 
-
-// USE IT 
-// <CompCtn 
-//  leftSide={<SomeSmartComponent/>}
-//  rightSide={<SomeOtherComponent/>}
-// />
-
-export default class CompCtn extends Component {
+export default class Ctn extends Component {
  
   shouldComponentUpdate() {
-  // it won't trigger re-render on children, won't be owner of child 
       return false;
+  // it won't trigger re-render on children, won't be owner of child 
   };
 
   render() {
@@ -26,6 +19,12 @@ export default class CompCtn extends Component {
   }
 }
 
+// USE IT 
+
+// <Ctn 
+//  leftSide={<SomeSmartComponent/>}
+//  rightSide={<SomeOtherComponent/>}
+// />
 
 
     

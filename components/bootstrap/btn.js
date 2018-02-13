@@ -5,8 +5,8 @@ import { height } from "../../constants/device";
 import Theme from "../../constants/theme";
 
 export const looks = {
-  primary: "primary",
-  secondary: "secondary",
+  alpha: "alpha",
+  beta: "beta",
   disabled:"disabled",
   first: "first",
   last: "last"
@@ -25,14 +25,14 @@ const requiredParam = () => {
 }
 
 propsToStyles = (look = requiredParam() ) => {
-  if (look === "primary") return { backgroundColor: Theme.color.primary };
-  if (look === "secondary") return { backgroundColor: Theme.color.secondary };
+  if (look === "alpha") return { backgroundColor: Theme.color.alpha };
+  if (look === "beta") return { backgroundColor: Theme.color.beta };
   if (look === "disabled") return { backgroundColor: Theme.color.disabled};
-  if (look === "first") return { width: "50%", backgroundColor: Theme.color.primary };
-  if (look === "last") return { width: "50%", backgroundColor: Theme.color.secondary };
+  if (look === "first") return { width: "50%", backgroundColor: Theme.color.alpha };
+  if (look === "last") return { width: "50%", backgroundColor: Theme.color.beta };
 };
 
-const defaultHandleClick = _ => alert("Feature to be coded");
+const defaultHandleClick = _ => alert("Feature not yet coded");
 
 const Button = props => (
   <TouchableOpacity
@@ -52,9 +52,7 @@ Button.propTypes = {
 
 // USE IT
 
-// import Button, { looks } from "./comps/bootstrap/btn";
-
-// <Button look={looks.secondary} handleClick={this.toggleNotification} label={"Ok, thanks!"} />
+// <Button look={looks.alpha} handleClick={this.toggleNotification} label={"Ok, thanks!"} />
 
 // <View style={{ flexDirection: "row" }}>
 //   <Button look={looks.first} handleClick={this.toggleNotification} label={"Ok, thanks!"} />

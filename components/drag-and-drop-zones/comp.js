@@ -299,7 +299,7 @@ console.log(string)
   getBgColor = index => {
     const idx = this.state.dragging;
     if (index === idx) {
-      return Theme.color.primary;
+      return Theme.color.alpha;
     } else return Theme.color.white;
   };
 
