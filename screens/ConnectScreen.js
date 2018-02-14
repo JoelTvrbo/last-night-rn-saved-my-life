@@ -2,18 +2,18 @@ import React from 'react';
 import { ScrollView, View,StyleSheet,Text } from 'react-native';
 import { StackNavigator, } from 'react-navigation';
 import { Ionicons } from "@expo/vector-icons";
-
+import {TitleAlpha,TitleBeta} from '../components/bootstrap/typography';
 import Button, { looks } from "../components/bootstrap/btn";
 import Header from "../components/bootstrap/header";
 import Switch from "../components/bootstrap/switch";
 import Clock from "../components/bootstrap/clock";
 import Toggle from "../components/bootstrap/toggle";
-import { wide, tall, height, width } from "../constants/device";
+import { WIDE, TALL, HEIGHT, WIDTH } from "../constants/device";
 import Theme from "../constants/theme";
 
-const Title = _ => <Text>Connect!</Text>;
-const SubTitle = _ => <Text>Use your fav service</Text>;
-const Spacer = _ => <View style={{ height: tall, opacity: 0 }} />;
+const Title = _ => <TitleAlpha>Connect!</TitleAlpha>;
+const SubTitle = _ => <TitleBeta>Use your fav service</TitleBeta>;
+const Spacer = _ => <View style={{ height: TALL, opacity: 0 }} />;
 
 export default class ConnectScreen extends React.Component {
   static navigationOptions = {
@@ -54,7 +54,7 @@ export default class ConnectScreen extends React.Component {
           paddingVertical: 15,
           backgroundColor: Theme.color.bg,
           flexGrow:1,
-          minHeight:height*2
+          minHeight:HEIGHT*2
         }}>
 
           <Header

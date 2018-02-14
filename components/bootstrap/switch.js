@@ -13,7 +13,7 @@ import {
 } from "react-native";
 import PropTypes from "prop-types";
 import { Ionicons } from "@expo/vector-icons";
-import { width, wide } from "../../constants/device";
+import { WIDE, WIDTH } from "../../constants/device";
 
 const config = {
   duration: 50,
@@ -214,7 +214,7 @@ Switch.propTypes = {
 
 const styles = StyleSheet.create({
   container: {
-    width: width - wide,
+    width: WIDTH - WIDE,
     height: 55,
     flexDirection: "row",
     backgroundColor: "#ddd",
@@ -236,7 +236,7 @@ const styles = StyleSheet.create({
     height: 53,
     alignItems: "center",
     justifyContent: "center",
-    width: (width - wide) / 3,
+    width: (WIDTH - WIDE) / 3,
     elevation: 4,
     shadowOpacity: 0.31,
     shadowRadius: 10,
@@ -244,7 +244,7 @@ const styles = StyleSheet.create({
   },
   buttonStyle: {
     flex: 1,
-    width: (width - wide) / 3,
+    width: (WIDTH - WIDE) / 3,
     height: 54,
     justifyContent: "center",
     alignItems: "center"

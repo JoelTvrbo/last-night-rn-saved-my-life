@@ -9,7 +9,7 @@ import {
   findNodeHandle,
   UIManager
 } from "react-native";
-import {wide, tall, statusbar} from "../../constants/device";
+import { WIDE, TALL } from "../../constants/device";
 
 import Theme from "../../constants/theme";
 import { Entypo } from "@expo/vector-icons";
@@ -136,9 +136,9 @@ export default class Toggle extends Component {
       borderColor: "white",
       borderWidth: 2,
       height: this.state.animation,
-      paddingHorizontal: wide,
-      paddingVertical: tall,
-      marginBottom: tall
+      paddingHorizontal: WIDE,
+      paddingVertical: TALL,
+      marginBottom: TALL
     };
     const titleStyles = {
       fontSize: Theme.type.lg - 10,
