@@ -1,12 +1,14 @@
 
 const Artwork = {
-  onboardingApha: "./media/onboarding-alpha.jpg",
-  onboardingBeta: "./media/onboarding-beta.jpg",
-  onboardingGamma: "./media/onboarding-gamma.jpg",
-  onboardingDelta: "./media/onboarding-delta.jpg",
-  onboardingEpsilon: "./media/onboarding-epsilon.jpg",
-  logoAlpha: "./media/logo-alpha.jpg",
-  logoBeta: "./media/logo-beta.jpg"
+  // onboardingApha: "../assets/onboarding-alpha.jpg",
+  // onboardingBeta: "../assets/onboarding-beta.jpg",
+  // onboardingGamma: "../assets/onboarding-gamma.jpg",
+  // onboardingDelta: "../assets/onboarding-delta.jpg",
+  // onboardingEpsilon: "../assets/onboarding-epsilon.jpg",
+  // logoAlpha: "../assets/logo-alpha.jpg",
+  // logoBeta: "../assets/logo-beta.jpg",
+  slideInAlpha:require("../assets/1.jpg"),
+  slideInBeta:require("../assets/2.png"),
 };
 
 export default Artwork;

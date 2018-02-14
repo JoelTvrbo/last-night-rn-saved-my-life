@@ -12,6 +12,8 @@ import HoodScreen from '../screens/HoodScreen';
 import ReOrderScreen from '../screens/ReOrderScreen';
 import DeckScreen from '../screens/DeckScreen';
 import ToggleScreen from '../screens/ToggleScreen';
+import SlideInScreen from '../screens/SlideInScreen';
+
 
 
 import registerForPushNotificationsAsync from '../api/registerForPushNotificationsAsync';
@@ -41,6 +43,9 @@ const RootStackNavigator = StackNavigator(
     }, 
     Toggle: {
       screen: ToggleScreen,
+    },  
+    SlideIn: {
+      screen: SlideInScreen,
     },  
   },
   {
