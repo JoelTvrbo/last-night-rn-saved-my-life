@@ -8,8 +8,9 @@ import {
   Text
 } from "react-native";
 
-import { width} from "../../constants/device";
+import { WIDTH } from "../../constants/device";
 import Theme from "../../constants/theme";
+import {TitleAlpha,TitleBeta,Body} from '../../components/bootstrap/typography';
 
 
 export default class Hood extends React.Component {
@@ -245,7 +246,7 @@ export default class Hood extends React.Component {
   };
 
   render() {
-    const { items, ctnStyles, itemStyles, labelStyles, } = this.props;
+    const { items, ctnStyles, itemStyles, labelStyles } = this.props;
 
     const { dropArea, cellWidth, neighboursIdx, animtest, targetDropped, isError } = this.state;
 
@@ -254,7 +255,7 @@ export default class Hood extends React.Component {
     };
 
     const ctnDraggie = {
-      width: width,
+      width: WIDTH,
       height: 150,
       backgroundColor: "yellow",
       display: "flex",
@@ -272,7 +273,7 @@ export default class Hood extends React.Component {
       <View style={styles.ctn}>
         <View
           style={{
-            width: width,
+            width: WIDTH,
             display: "flex",
             flexDirection: "row",
             flexWrap: "wrap",
@@ -298,9 +299,9 @@ export default class Hood extends React.Component {
                   this.state.targetDropped === item.key ? Theme.color.beta : "yellow"
               }}
             >
-              <Text style={Object.assign(gridLabelStyles, labelStyles)}>
+              <Body style={Object.assign(gridLabelStyles, labelStyles)}>
                 {item.key}
-              </Text>
+              </Body>
             </Animated.View>
           ))}
         </View>

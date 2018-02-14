@@ -6,12 +6,12 @@ import Theme from "../../constants/theme";
 const styles = StyleSheet.create({
   title: {
     fontSize: Theme.type.lg,
-    fontFamily: Theme.type.beta,
+    fontFamily: Theme.type.alpha,
     backgroundColor: "transparent"
   },
   titlexl: {
     fontSize: Theme.type.xl,
-    fontFamily: Theme.type.beta,
+    fontFamily: Theme.type.alpha,
     backgroundColor: "transparent"
   },
   titlebold: {
@@ -21,12 +21,7 @@ const styles = StyleSheet.create({
   },
   body: {
     fontSize: Theme.type.md,
-    fontFamily: Theme.type.regular,
-    backgroundColor: "transparent"
-  },
-  bodybold: {
-    fontSize: Theme.type.md,
-    fontFamily: Theme.type.bold,
+    fontFamily: Theme.type.beta,
     backgroundColor: "transparent"
   }
 });
@@ -45,8 +40,4 @@ export const TitleBold = ({ style, ...props }) => (
 
 export const Body = ({ style, ...props }) => (
   <Text style={[styles.bodylight, style]} {...props} />
-);
-
-export const BodyBold = ({ style, ...props }) => (
-  <Text style={[styles.bodybold, style]} {...props} />
 );

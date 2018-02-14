@@ -1,14 +1,5 @@
 import React, { cloneElement, Component } from "react";
-import {
-  Animated,
-  Easing,
-  View,
-  Image,
-  StyleSheet,
-  Text,
-  LayoutAnimation,
-  UIManager,
-} from "react-native";
+import { Animated, Easing, View, Image, StyleSheet, Text, LayoutAnimation, UIManager, } from "react-native";
 import {width} from "../../../constants/device";
 import { Ionicons } from "@expo/vector-icons";
 import Button, { looks } from "./btn";
@@ -95,8 +86,6 @@ export default class App extends React.Component {
       </View>
     );
   };
-
-  overrideHandleClick = () => alert("click");
 
   render() {
     const notificationTranslateY = this.state.animation.interpolate({

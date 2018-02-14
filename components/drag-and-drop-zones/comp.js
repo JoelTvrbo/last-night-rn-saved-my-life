@@ -1,28 +1,15 @@
 import React, { cloneElement } from "react";
-import {
-  Animated,
-  Easing,
-  View,
-  PanResponder,
-  FlatList,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  SafeAreaView,
-  Dimensions,
-  LayoutAnimation,
-  findNodeHandle,
-  UIManager
-} from "react-native";
-import {width,height} from "../../constants/device";
-import Theme from "../../constants/theme";
+import { Animated, Easing, View, PanResponder, FlatList, StyleSheet, Text, TouchableOpacity, SafeAreaView, Dimensions, LayoutAnimation, findNodeHandle, UIManager } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+
+import {WIDTH, HEIGHT} from "../../constants/device";
+import Theme from "../../constants/theme";
 
 const arr = [ { key: 1, nom: "Catalina" }, { key: 2, nom: "Romulo" }, { key: 3, nom: "Noooollo" }, { key: 4, nom: "Moro" }, { key: 5, nom: "Nura" }, { key: 6, nom: "Paura" }, { key: 7, nom: "Bulma" }, { key: 8, nom: "ulma" }, { key: 9, nom: "Serotonina" } ];
 
 const config = {
   margin: 10,
-  width: Math.floor(width / 4 - 20)
+  width: Math.floor(WIDTH / 4 - 20)
 };
 
 const getProp = (src, k, output) => {
@@ -127,8 +114,7 @@ export default class App extends React.Component {
       .map(zone => zone.ref);
   
       const string = rawString[0];
-console.log(this.state.dropZones)
-console.log(string)
+
     if (!string) {
       return this.resetPan();
     } else if (string === "empty") {
@@ -228,7 +214,7 @@ console.log(string)
       <FlatList
         scrollEnabled={false}
         style={{
-          width: width
+          width: WIDTH
         }}
         ref={el => {
           this.list = el;
@@ -300,14 +286,14 @@ console.log(string)
     const idx = this.state.dragging;
     if (index === idx) {
       return Theme.color.alpha;
-    } else return Theme.color.white;
+    } else return Theme.color.beta;
   };
 
   
   render() {
     const DropZoneStyles = {
-      width: width / 4,
-      height: width / 4,
+      width: WIDTH / 4,
+      height: WIDTH / 4,
       backgroundColor: "#bbb",
     };
     const DropZoneEmptyStyles = {
@@ -411,11 +397,11 @@ const styles = StyleSheet.create({
     position: "relative"
   },
   ctnDropZones: {
-    width: width,
+    width: WIDTH,
     flexDirection: "row",
     justifyContent: "space-around",
     alignItems: "center",
-    minHeight: height / 4,
+    minHeight: HEIGHT / 4,
     backgroundColor: "transparent"
   },
   msg: {

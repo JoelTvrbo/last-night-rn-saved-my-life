@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "last-night-rn-saved-my-life",
-    "description": "A very interesting project.",
-    "slug": "last-night-rn-saved-my-life",
+    "name": "state-of-code-s01",
+    "description": "state-of-code-s01",
+    "slug": "state-of-code-s01",
     "privacy": "public",
     "sdkVersion": "25.0.0",
     "platforms": ["ios", "android"],

@@ -11,6 +11,7 @@ import PackScreen from '../screens/PackScreen';
 import HoodScreen from '../screens/HoodScreen';
 import ReOrderScreen from '../screens/ReOrderScreen';
 import DeckScreen from '../screens/DeckScreen';
+import ToggleScreen from '../screens/ToggleScreen';
 
 
 import registerForPushNotificationsAsync from '../api/registerForPushNotificationsAsync';
@@ -37,6 +38,9 @@ const RootStackNavigator = StackNavigator(
     },  
     Deck: {
       screen: DeckScreen,
+    }, 
+    Toggle: {
+      screen: ToggleScreen,
     },  
   },
   {

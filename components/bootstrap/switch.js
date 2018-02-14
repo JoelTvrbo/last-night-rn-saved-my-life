@@ -13,36 +13,44 @@ import {
 } from "react-native";
 import PropTypes from "prop-types";
 import { Ionicons } from "@expo/vector-icons";
+
 import { WIDE, WIDTH } from "../../constants/device";
+import Theme from "../../constants/theme";
 
 const config = {
+  height:55,
   duration: 50,
-  iconSize: 25
+  iconSize: 25,
+  radius:28,
+  border:1,
+  transparency:0.3,
+  offset:1
 };
+
 const items = [
   {
     uid: 1,
     label: "Left",
     icon: "ios-cloudy",
     iconActive: "ios-cloudy",
-    color: "#333",
-    colorActive: "magenta"
+    color: Theme.color.base,
+    colorActive: Theme.color.beta
   },
   {
     uid: 2,
     label: "Middle",
     icon: "ios-aperture-outline",
     iconActive: "ios-aperture",
-    color: "#333",
-    colorActive: "magenta"
+    color: Theme.color.base,
+    colorActive: Theme.color.beta
   },
   {
     uid: 3,
     label: "right",
     icon: "ios-analytics-outline",
     iconActive: "ios-analytics",
-    color: "#333",
-    colorActive: "magenta"
+    color: Theme.color.base,
+    colorActive: Theme.color.beta
   }
 ];
 
@@ -84,7 +92,6 @@ export default class Switch extends React.Component {
       onStartShouldSetPanResponderCapture: () => true,
       onMoveShouldSetPanResponder: () => true,
       onMoveShouldSetPanResponderCapture: () => true,
-
       onPanResponderGrant: () => {
         // disable parent scroll if slider is inside a scrollview
         if (!this.isParentScrollDisabled) {
@@ -94,7 +101,6 @@ export default class Switch extends React.Component {
         this.state.xx.setOffset(this.xx);
         this.state.xx.setValue(0);
       },
-
       onPanResponderMove: (evt, gestureState) =>  { Animated.event([null, { dx: this.state.xx }])(
               evt,
               gestureState
@@ -102,32 +108,27 @@ export default class Switch extends React.Component {
           },
 
       onPanResponderTerminationRequest: () => true,
-
       onPanResponderRelease: (evt, gestureState) => {
         const { moveX } = gestureState;
         this.isParentScrollDisabled = false;
         this.props.disableScroll(true);
+
         if (moveX >= 0 && moveX <= this.state.ctn / 3) {
-          this.handleChange(1);
+          this.goTo(1);
         } else if (
           moveX >= this.state.ctn / 3 &&
           moveX <= this.state.ctn / 3 * 2
         ) {
-          this.handleChange(2);
+          this.goTo(2);
         } else {
-          this.handleChange(3);
+          this.goTo(3);
         } 
         
-    this.state.xx.setOffset(this.xx);
-    this.state.xx.setValue(0);
-
-
+        this.state.xx.setOffset(this.xx);
+        this.state.xx.setValue(0);
       },
-
       onPanResponderTerminate: () => {},
       onShouldBlockNativeResponder: () => {
-        // Returns whether this component should block native components from becoming the JS
-        // responder. Returns true by default. Is currently only supported on android.
         return true;
       }
     });
@@ -139,10 +140,9 @@ export default class Switch extends React.Component {
     if (idx == 3) return this.state.ctn / 3 * 2;
   }
 
-  handleChange(idx) {
-    const curr = items.find(item => item.uid === idx);
-
-    const pos = this.output(idx);
+  goTo(idx) {
+    const curr = items.find(item => item.uid === idx),
+      pos = this.output(idx);
 
     this.setState(
       {
@@ -155,10 +155,8 @@ export default class Switch extends React.Component {
           duration: config.duration
         }).start(
           this.state.isComponentReady && this.props.onStatusChanged(idx)
-    )
-    );
+    ))
   }
-
 
   render() {
     return (
@@ -168,17 +166,20 @@ export default class Switch extends React.Component {
           this.measureRef(el, "ctn");
         }}
       >
-        {items.map(button => (
-          <Button
-            key={button.uid}
-            icon={button.icon}
-            iconActive={button.iconActive}
-            color={button.color}
-            colorActive={button.colorActive}
-            onPress={() => this.handleChange(button.uid)}
-            size={config.iconSize}
-          />
-        ))}
+
+        {
+          items.map(button => (
+            <Button
+              key={button.uid}
+              icon={button.icon}
+              iconActive={button.iconActive}
+              color={button.color}
+              colorActive={button.colorActive}
+              onPress={() => this.goTo(button.uid)}
+              size={config.iconSize}
+            />
+          ))
+        }
 
         <Animated.View
           {...this._panResponder.panHandlers}
@@ -186,11 +187,8 @@ export default class Switch extends React.Component {
             styles.switcher,
             {
               transform:[
-                
               {translateX:this.state.position //translation
-              
               }]
-            
             }
           ]}
         >
@@ -215,39 +213,40 @@ Switch.propTypes = {
 const styles = StyleSheet.create({
   container: {
     width: WIDTH - WIDE,
-    height: 55,
+    height: config.height,
     flexDirection: "row",
-    backgroundColor: "#ddd",
+    backgroundColor: Theme.color.bg,
     alignItems: "center",
     justifyContent: "center",
-    borderWidth: 1,
-    borderColor: "#ccc",
-    borderRadius: 27.5,
-    alignSelf: "center"
+    alignSelf: "center",
+    borderWidth: config.border,
+    borderColor: Theme.color.rey,
+    borderRadius: config.radius,
   },
 
   switcher: {
-    flexDirection: "row",
     position: "absolute",
     top: 0,
     left: 0,
-    backgroundColor: "#fff",
-    borderRadius: 28,
-    height: 53,
+    flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
     width: (WIDTH - WIDE) / 3,
+    height: config.height - 2, // MAGIC NUMBER, SORRY GODS
+    backgroundColor: Theme.color.rey,
+    borderRadius: config.radius,
+    shadowOpacity: config.transparency,
+    shadowOffset: { x: config.offset, y: config.offset },
+    shadowColor: Theme.color.palpatine,
+    shadowRadius: config.radius,
     elevation: 4,
-    shadowOpacity: 0.31,
-    shadowRadius: 10,
-    shadowColor: "#ccc"
   },
   buttonStyle: {
     flex: 1,
-    width: (WIDTH - WIDE) / 3,
-    height: 54,
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
+    width: (WIDTH - WIDE) / 3,
+    height: config.height - 1 // MAGIC NUMBER, SORRY GODS
   }
 });
 

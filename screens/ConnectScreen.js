@@ -2,12 +2,11 @@ import React from 'react';
 import { ScrollView, View,StyleSheet,Text } from 'react-native';
 import { StackNavigator, } from 'react-navigation';
 import { Ionicons } from "@expo/vector-icons";
-import {TitleAlpha,TitleBeta} from '../components/bootstrap/typography';
+import {TitleAlpha,TitleBeta,Body} from '../components/bootstrap/typography';
 import Button, { looks } from "../components/bootstrap/btn";
 import Header from "../components/bootstrap/header";
 import Switch from "../components/bootstrap/switch";
 import Clock from "../components/bootstrap/clock";
-import Toggle from "../components/bootstrap/toggle";
 import { WIDE, TALL, HEIGHT, WIDTH } from "../constants/device";
 import Theme from "../constants/theme";
 
@@ -19,6 +18,10 @@ export default class ConnectScreen extends React.Component {
   static navigationOptions = {
     header: null,
   };
+
+  goToToggle = () => {
+    this.props.navigation.navigate("Toggle");
+  }
 
   goToReOrder= () => {
     this.props.navigation.navigate("ReOrder");
@@ -64,10 +67,15 @@ export default class ConnectScreen extends React.Component {
           />
 
           <Spacer />
+
           <View style={{ flexDirection: "row" }}>
             <Button look={looks.first} label={"Login"} />
             <Button look={looks.last} label={"Register"} />
           </View>
+
+          <Spacer />
+
+          <Button look={looks.beta} handleClick={this.goToToggle} label={"Toggle"} />
           <Spacer />
 
           <Button look={looks.alpha} handleClick={this.goToOnBoard} label={"OnBoarding"} />
@@ -102,11 +110,6 @@ export default class ConnectScreen extends React.Component {
                 console.log("Current idx ", idx);
               }}
             />
-            <Spacer />
-
-            <Toggle label={"aloha world"}>
-              <Text>we are united,we are one, we old</Text>
-            </Toggle>
             <Spacer />
 
             <Clock />

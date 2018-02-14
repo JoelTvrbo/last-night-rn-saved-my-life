@@ -1,25 +1,9 @@
 import React, { cloneElement } from "react";
-import {
-  Animated,
-  Easing,
-  View,
-  PanResponder,
-  FlatList,
-  StyleSheet,
-  Text,
-  Image,
-  TouchableOpacity,
-  SafeAreaView,
-  Dimensions,
-  LayoutAnimation,
-  findNodeHandle,
-  UIManager,
-  ScrollView,
-  ReactNative
-} from "react-native";
+import { Animated,StyleSheet, SafeAreaView, } from "react-native";
 
-import { wide, tall, height, width } from "../constants/device";
-import { color, type } from "../constants/theme";
+import { WIDE, TALL, HEIGHT, WIDTH } from "../constants/device";
+import Theme from "../constants/theme";
+
 import Card from '../components/drag-and-drop-deck/comp';
 import Button, { looks } from "../components/bootstrap/btn";
 
@@ -42,14 +26,14 @@ var types = [
 
 var orders = ["A","2","3","4","5"]
 
-
   
 import { Ionicons } from "@expo/vector-icons";
 
 export default class DeckScreen extends React.Component {
   static navigationOptions = {
-    title: 'orden !',
+    header: null
   };
+
   state = {
     opacity: new Animated.Value(0),
     scale: new Animated.Value(.9),
@@ -57,8 +41,8 @@ export default class DeckScreen extends React.Component {
   };
 
  renderCards(){
-		var initTop = height/2-88
-		var initLeft = width/2-62
+		var initTop = HEIGHT/2-88
+		var initLeft = WIDTH/2-62
     var count = 10
     
 		var matches = types.map((type)=> {
@@ -89,10 +73,10 @@ export default class DeckScreen extends React.Component {
 		return this.All
 }
 
-
  report(title){
    console.log(title)
  }
+
   render() {
     return (
       <SafeAreaView style={styles.ctn}>
@@ -105,7 +89,7 @@ export default class DeckScreen extends React.Component {
 const styles = StyleSheet.create({
   ctn: {
     flex: 1,
-    backgroundColor: '#eee',
+    backgroundColor: Theme.color.luke,
   }
 });
 

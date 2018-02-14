@@ -21,6 +21,7 @@ const colors = {
   palpatine: "rgba(0,0,0,1)",
   vader: "rgba(0,0,0,.6)",
   luke: "#fbfbfb",
+  rey: "#fff",
   bg: "#ddd"
 };
 

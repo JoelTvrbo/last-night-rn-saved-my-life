@@ -11,7 +11,7 @@ import {
   AsyncStorage
 } from "react-native";
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { width, height,statusbar } from "../../constants/device";
+import { WIDTH, HEIGHT, STATUSBAR } from "../../constants/device";
 import Theme from "../../constants/theme";
 import BigSlider from "react-native-big-slider";
 
@@ -59,7 +59,7 @@ export default class Pack extends React.Component {
         );
 
         const safeArea =
-          ~~this.state.headerHeight + width + 50;
+          ~~this.state.headerHeight + WIDTH + 50;
 
         if (moveY <= ~~this.state.headerHeight || moveY > safeArea) {
           this.setState({
@@ -101,7 +101,7 @@ export default class Pack extends React.Component {
   
   Yaxis = (newY, cell) => {
     const safeArea =
-      ~~this.state.headerHeight + statusbar;
+      ~~this.state.headerHeight + STATUSBAR;
     if (newY <= cell + safeArea) return [1, 2, 3, 4];
     if (newY > cell + safeArea && newY < cell * 2 + safeArea)
       return [5, 6, 7, 8];
@@ -126,8 +126,8 @@ export default class Pack extends React.Component {
 
   findIdxOnDrop = (coord) => {
     const { newY, newX } = coord;
-    const cell = width / 4;
-    const safeArea = ~~this.state.headerHeight + width + 50;
+    const cell = WIDTH / 4;
+    const safeArea = ~~this.state.headerHeight + WIDTH + 50;
 
     if (newY <= ~~this.state.headerHeight || newY > safeArea) {
       Animated.timing(this.state.pan, {
@@ -220,12 +220,12 @@ export default class Pack extends React.Component {
     };
 
     const ctnDraggie = {
-      width: width,
+      width: WIDTH,
       height:
-        height -
-        width -
+        HEIGHT -
+        WIDTH -
         headerHeight -
-        statusbar,
+        STATUSBAR,
       padding: 10,
       backgroundColor: Theme.color.bg,
       display: "flex",
@@ -263,8 +263,8 @@ export default class Pack extends React.Component {
         <FlatList
           scrollEnabled={false}
           style={{
-            width: width,
-            height: width,
+            width: WIDTH,
+            height: WIDTH,
             backgroundColor: isError ? Theme.color.alpha : Theme.color.white
           }}
           data={this.props.items}
@@ -274,8 +274,8 @@ export default class Pack extends React.Component {
             <Animated.View
               key={item.key}
               style={{
-                width: width / 4,
-                height: width / 4,
+                width: WIDTH / 4,
+                height: WIDTH / 4,
                 borderWidth: 1,
                 justifyContent: "center",
                 alignItems: "center",
@@ -333,7 +333,7 @@ export default class Pack extends React.Component {
           <View>
             <BigSlider
               maximumValue={10}
-              style={{ width: 80, height: 60 }}
+              style={{ width: WIDTH / 4, height: 60 }}
               // ref={el => {this.slider = el}}
               // onSlidingComplete={() => {
               //   this.slider.slideTo(80)
@@ -367,7 +367,7 @@ let styles = StyleSheet.create({
     backgroundColor:Theme.color.bg
   },
   header: {
-    width: width,
+    width: WIDTH,
     flexDirection: "row",
     justifyContent: "space-between",
     paddingHorizontal: 10,
@@ -375,14 +375,14 @@ let styles = StyleSheet.create({
     alignItems: "center"
   },
   row: {
-    width: width,
+    width: WIDTH,
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
     overflow: "hidden"
   },
   touchableSave: {
-    width: width,
+    width: WIDTH,
     backgroundColor: 'magenta'
   },
   circle: {
